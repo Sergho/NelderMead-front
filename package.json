@@ -1,0 +1,32 @@
+{
+  "name": "nelder-mead",
+  "version": "1.0.0",
+  "main": "./dist/main/index.js",
+  "scripts": {
+    "dev:react": "vite",
+    "dev:electron": "npm run build && electron ./dist/src/main/index.js",
+    "dev": "concurrently \"npm run dev:react\" \"npm run dev:electron\"",
+    "build": "tsc"
+  },
+  "author": {
+    "name": "Sergho",
+    "email": "sergche04@gmail.com"
+  },
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/electron": "^1.6.12",
+    "@types/node": "^22.13.10",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "electron": "^35.0.1",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.2"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
