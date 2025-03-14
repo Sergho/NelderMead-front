@@ -22,11 +22,12 @@
     "@vitejs/plugin-react": "^4.3.4",
     "concurrently": "^9.1.2",
     "electron": "^35.0.1",
+    "sass": "^1.85.1",
     "typescript": "^5.8.2",
-    "vite": "^6.2.2",
-    "sass": "^1.85.1"
+    "vite": "^6.2.2"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }
