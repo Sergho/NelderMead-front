@@ -23,7 +23,8 @@
     "concurrently": "^9.1.2",
     "electron": "^35.0.1",
     "typescript": "^5.8.2",
-    "vite": "^6.2.2"
+    "vite": "^6.2.2",
+    "sass": "^1.85.1"
   },
   "dependencies": {
     "react": "^19.0.0",
