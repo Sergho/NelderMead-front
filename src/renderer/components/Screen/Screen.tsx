@@ -1,19 +1,15 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { FC } from 'react';
 import styles from './Screen.module.scss';
 import Query from '../Query/Query';
 import Result from '../Result/Result';
+import Clear from '../Clear/Clear';
 
 const Screen: FC = () => {
-  const [content, setContent] = useState('');
-
-  function handleInput(e: ChangeEvent<HTMLInputElement>) {
-    setContent(e.target.value);
-  }
-
   return (
     <div className={styles.screen}>
       <Query />
       <Result />
+      <Clear />
     </div>
   );
 };

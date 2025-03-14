@@ -1,0 +1,32 @@
+.clear {
+  width: 5vh;
+  aspect-ratio: 1;
+  position: absolute;
+  left: 20px;
+  bottom: 30%;
+  transform: translate(0, 50%);
+
+  span {
+    display: block;
+    width: 90%;
+    height: 7%;
+    background-color: #777;
+    position: absolute;
+    border-radius: 3px;
+    cursor: pointer;
+    top: 50%;
+    left: 50%;
+    transition: 0.2s ease;
+    &:nth-child(1) {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    &:nth-child(2) {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+  }
+  &:hover {
+    span {
+      background-color: #333;
+    }
+  }
+}
