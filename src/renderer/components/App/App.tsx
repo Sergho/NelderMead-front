@@ -1,10 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
 import styles from './App.module.scss';
+import Calculator from '../Calculator/Calculator';
 
-const App: React.FC = () => {
+const App: FC = () => {
   return (
     <div className={styles.app}>
-      <h1>Hello, Electron with React!</h1>
+      <Calculator />
     </div>
   );
 };
