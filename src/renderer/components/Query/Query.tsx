@@ -10,7 +10,7 @@ const Query: FC<QueryProps> = (props: QueryProps) => {
 
   return (
     <div className={styles.query}>
-      <input className={styles.input} type="text" value={content} />
+      <p className={styles.input}>{content}</p>
     </div>
   );
 };

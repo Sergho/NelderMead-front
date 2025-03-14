@@ -1,5 +1,3 @@
-import { ButtonProps } from '../components/Button/Button';
-import { Type } from './enums';
 import { IButton } from './interfaces';
 
 export const BUTTONS: IButton[] = [
@@ -50,6 +48,7 @@ export const BUTTONS: IButton[] = [
   {
     char: 'x',
     operation: true,
+    alias: '*',
   },
   {
     char: '.',
