@@ -1,21 +1,16 @@
 import { ChangeEvent, FC, useState } from 'react';
 import styles from './Query.module.scss';
 
-const Query: FC = () => {
-  const [content, setContent] = useState('');
+interface QueryProps {
+  content: string;
+}
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setContent(e.target.value);
-  }
+const Query: FC<QueryProps> = (props: QueryProps) => {
+  const { content } = props;
 
   return (
     <div className={styles.query}>
-      <input
-        className={styles.input}
-        type="text"
-        onChange={handleChange}
-        value={content}
-      />
+      <input className={styles.input} type="text" value={content} />
     </div>
   );
 };
