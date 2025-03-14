@@ -3,7 +3,7 @@ import styles from './Button.module.scss';
 import { Type } from '../../common/enums';
 import clsx from 'clsx';
 
-interface ButtonProps {
+export interface ButtonProps {
   value: string;
   type: Type;
 }
