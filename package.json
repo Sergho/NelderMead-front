@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "main": "./dist/main/index.js",
   "scripts": {
+    "dev:server": "ts-node ./src/server/index.ts",
     "dev:react": "vite",
     "dev:electron": "tsc && electron ./dist/src/main/index.js",
-    "dev": "concurrently \"npm run dev:react\" \"npm run dev:electron\"",
+    "dev:browser": "concurrently \"npm run dev:server\" \"npm run dev:react\"",
+    "dev": "concurrently \"npm run dev:browser\" \"npm run dev:electron\"",
     "configure:backend": "cmake -B build -S external/backend",
     "build:backend": "npm run configure:backend && cmake --build build"
   },
@@ -16,7 +18,11 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/axios": "^0.14.4",
+    "@types/cors": "^2.8.17",
     "@types/electron": "^1.6.12",
+    "@types/express": "^5.0.0",
+    "@types/ffi-napi": "^4.0.10",
     "@types/node": "^22.13.10",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
@@ -28,8 +34,13 @@
     "vite": "^6.2.2"
   },
   "dependencies": {
+    "axios": "^1.8.3",
     "clsx": "^2.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "ffi-napi": "^4.0.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "ts-node": "^10.9.2"
   }
 }

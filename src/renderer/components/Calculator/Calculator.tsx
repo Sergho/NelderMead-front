@@ -4,6 +4,7 @@ import Screen from '../Screen/Screen';
 import Keyboard from '../Keyboard/Keyboard';
 import { IButton } from '../../common/interfaces';
 import { BUTTONS } from '../../common/constants';
+import { dynamicCalculate } from '../../common/dynamicCalculate';
 
 const Calculator: FC = () => {
   const [query, setQuery] = useState<IButton[]>([]);
@@ -45,41 +46,22 @@ const Calculator: FC = () => {
     setResult('');
   }
 
-  function calculate(query: IButton[]) {
-    setResult((prevResult) => {
-      const operands: string[] = ['', ''];
-      let operation = '';
-      let operandIndex = 0;
-      for (const elem of query) {
-        if (elem.operation) {
-          operandIndex++;
-          operation = elem.char;
-          continue;
-        }
-        operands[operandIndex] += elem.char;
+  async function calculate(query: IButton[]) {
+    const operands: string[] = ['', ''];
+    let operation = '';
+    let operandIndex = 0;
+    for (const elem of query) {
+      if (elem.operation) {
+        operandIndex++;
+        operation = elem.char;
+        continue;
       }
+      operands[operandIndex] += elem.char;
+    }
 
-      let result: string;
-      switch (operation) {
-        case '+':
-          result = String(+operands[0] + +operands[1]);
-          break;
-        case '-':
-          result = String(+operands[0] - +operands[1]);
-          break;
-        case 'x':
-          result = String(+operands[0] * +operands[1]);
-          break;
-        case '/':
-          result = String(+operands[0] / +operands[1]);
-          break;
-        default:
-          result = operands[0];
-          break;
-      }
-      updateQuery(result);
-      return result;
-    });
+    const result = await dynamicCalculate(operands, operation);
+    updateQuery(result);
+    setResult(result);
   }
 
   function updateQuery(result: string) {
