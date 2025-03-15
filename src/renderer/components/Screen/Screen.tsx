@@ -4,12 +4,20 @@ import Query from '../Query/Query';
 import Result from '../Result/Result';
 import Clear from '../Clear/Clear';
 
-const Screen: FC = () => {
+interface ScreenProps {
+  query: string;
+  result: string;
+  onClear: () => void;
+}
+
+const Screen: FC<ScreenProps> = (props: ScreenProps) => {
+  const { query, result, onClear } = props;
+
   return (
     <div className={styles.screen}>
-      <Query />
-      <Result />
-      <Clear />
+      <Query content={query} />
+      <Result content={result} />
+      <Clear onClick={onClear} />
     </div>
   );
 };

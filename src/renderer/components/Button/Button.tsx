@@ -1,25 +1,27 @@
-import { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 import styles from './Button.module.scss';
 import { Type } from '../../common/enums';
 import clsx from 'clsx';
 
-interface ButtonProps {
+export interface ButtonProps {
   value: string;
   type: Type;
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button: FC<ButtonProps> = (props: ButtonProps) => {
-  const { value, type } = props;
+  const { value, type, onClick } = props;
 
   return (
-    <h1
+    <button
       className={clsx(styles.button, {
         [styles.dark]: type === Type.Dark,
         [styles.light]: type === Type.Light,
       })}
+      onClick={onClick}
     >
       {value}
-    </h1>
+    </button>
   );
 };
 

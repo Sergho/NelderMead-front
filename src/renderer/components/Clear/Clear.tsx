@@ -1,9 +1,15 @@
 import styles from './Clear.module.scss';
 import { FC } from 'react';
 
-const Clear: FC = () => {
+interface ClearProps {
+  onClick: () => void;
+}
+
+const Clear: FC<ClearProps> = (props: ClearProps) => {
+  const { onClick } = props;
+
   return (
-    <div className={styles.clear}>
+    <div className={styles.clear} onClick={onClick}>
       <span></span>
       <span></span>
     </div>
