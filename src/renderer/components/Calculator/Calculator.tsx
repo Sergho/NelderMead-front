@@ -18,6 +18,7 @@ const Calculator: FC = () => {
           break;
         }
       }
+      e.preventDefault();
     }
 
     document.addEventListener('keydown', handleKeyDown);
@@ -73,7 +74,7 @@ const Calculator: FC = () => {
           result = String(+operands[0] / +operands[1]);
           break;
         default:
-          result = 'Error!';
+          result = operands[0];
           break;
       }
       updateQuery(result);
