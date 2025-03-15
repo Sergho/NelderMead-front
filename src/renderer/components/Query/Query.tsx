@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { FC } from 'react';
 import styles from './Query.module.scss';
 
 interface QueryProps {

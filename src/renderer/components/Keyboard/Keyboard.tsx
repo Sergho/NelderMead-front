@@ -18,6 +18,7 @@ const Keyboard: FC<KeyboardProps> = (props: KeyboardProps) => {
           <Button
             type={button.operation ? Type.Dark : Type.Light}
             value={button.char}
+            key={button.char}
             onClick={() => {
               onClick(button.char, button.operation);
             }}
