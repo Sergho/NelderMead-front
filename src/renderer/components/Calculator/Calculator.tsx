@@ -39,6 +39,10 @@ const Calculator: FC = () => {
       return [...prevQuery, { char, operation }];
     });
   }
+  function handleClear() {
+    setQuery([]);
+    setResult('');
+  }
 
   function calculate(query: IButton[]) {
     setResult((prevResult) => {
@@ -68,6 +72,9 @@ const Calculator: FC = () => {
         case '/':
           result = String(+operands[0] / +operands[1]);
           break;
+        default:
+          result = 'Error!';
+          break;
       }
       updateQuery(result);
       return result;
@@ -76,10 +83,10 @@ const Calculator: FC = () => {
 
   function updateQuery(result: string) {
     setQuery((prevQuery) => {
+      if (result === 'Error!') return [];
       const res = result.split('').map((char) => {
         return { char, operation: false };
       });
-      console.log(res);
       return res;
     });
   }
@@ -113,7 +120,7 @@ const Calculator: FC = () => {
 
   return (
     <div className={styles.calculator}>
-      <Screen result={result} query={getQueryString(query)} />
+      <Screen onClear={handleClear} result={result} query={getQueryString(query)} />
       <Keyboard onClick={handleClick} />
     </div>
   );
