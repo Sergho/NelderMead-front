@@ -42,10 +42,47 @@ const Calculator: FC = () => {
 
   function calculate(query: IButton[]) {
     setResult((prevResult) => {
-      return Date.now().toString();
+      const operands: string[] = ['', ''];
+      let operation = '';
+      let operandIndex = 0;
+      for (const elem of query) {
+        if (elem.operation) {
+          operandIndex++;
+          operation = elem.char;
+          continue;
+        }
+        operands[operandIndex] += elem.char;
+      }
+
+      let result: string;
+      switch (operation) {
+        case '+':
+          result = String(+operands[0] + +operands[1]);
+          break;
+        case '-':
+          result = String(+operands[0] - +operands[1]);
+          break;
+        case 'x':
+          result = String(+operands[0] * +operands[1]);
+          break;
+        case '/':
+          result = String(+operands[0] / +operands[1]);
+          break;
+      }
+      updateQuery(result);
+      return result;
     });
   }
 
+  function updateQuery(result: string) {
+    setQuery((prevQuery) => {
+      const res = result.split('').map((char) => {
+        return { char, operation: false };
+      });
+      console.log(res);
+      return res;
+    });
+  }
   function dotAllowed(query: IButton[]): boolean {
     const lastElem = getLastElem(query);
     if (lastElem.operation || lastElem.char === '' || lastElem.char === '.') return false;
