@@ -16,7 +16,7 @@ const Calculator: FC = () => {
   const [result, setResult] = useState('');
 
   useEffect(() => {
-    const handler = handleKeyDown(handleClick);
+    const handler = handleKeyDown(handleClick, handleClear);
     document.addEventListener('keydown', handler);
     return () => {
       document.removeEventListener('keydown', handler);
