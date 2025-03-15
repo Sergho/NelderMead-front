@@ -4,12 +4,12 @@ import * as path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  root: './src/renderer',
+  root: path.resolve(__dirname, 'src/renderer'), // Корневая директория для Vite
   build: {
-    outDir: 'dist/renderer',
+    outDir: path.resolve(__dirname, 'dist/renderer'),
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, './src/renderer/index.tsx'),
+        main: path.resolve(__dirname, './src/renderer/index.html'),
       },
     },
   },

@@ -3,13 +3,20 @@
   "version": "1.0.0",
   "main": "./dist/main/index.js",
   "scripts": {
-    "dev:server": "ts-node ./src/server/index.ts",
+    "dev:express": "ts-node ./src/server/index.ts",
     "dev:react": "vite",
     "dev:electron": "tsc && electron ./dist/main/index.js",
-    "dev:browser": "concurrently \"npm run dev:server\" \"npm run dev:react\"",
+    "dev:browser": "concurrently \"npm run dev:express\" \"npm run dev:react\"",
     "dev": "concurrently \"npm run dev:browser\" \"npm run dev:electron\"",
     "configure:backend": "cmake -B build -S external/backend",
-    "build:backend": "npm run configure:backend && cmake --build build"
+    "build:backend": "npm run configure:backend && cmake --build build",
+    "build:electron": "tsc -p tsconfig.electron.json",
+    "build:react": "vite build",
+    "build:express": "tsc -p tsconfig.express.json",
+    "build": "npm run build:backend && npm run build:electron && npm run build:react && npm run build:express",
+    "prod:electron": "electron ./dist/main/index.js",
+    "prod:react": "vite preview --port 3000",
+    "prod:express": "node ./dist/server/index.js"
   },
   "author": {
     "name": "Sergho",
