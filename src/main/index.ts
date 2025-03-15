@@ -1,18 +1,16 @@
 import { app, BrowserWindow } from 'electron';
-import path from 'path';
+import { config } from 'dotenv';
+import { WINDOW_SIZE } from './settings';
+
+config();
 
 let mainWindow: BrowserWindow;
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
-    width: 600,
-    height: 800,
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      preload: path.join(__dirname, './preload.ts'),
-    },
+    width: WINDOW_SIZE.width,
+    height: WINDOW_SIZE.height,
   });
 
-  mainWindow.loadURL('http://localhost:3000');
+  mainWindow.loadURL(process.env.FRONTEND_HOST);
 });
