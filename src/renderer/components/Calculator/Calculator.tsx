@@ -2,29 +2,24 @@ import { FC, useEffect, useState } from 'react';
 import styles from './Calculator.module.scss';
 import Screen from '../Screen/Screen';
 import Keyboard from '../Keyboard/Keyboard';
-import { IButton } from '../../common/interfaces';
-import { BUTTONS } from '../../common/constants';
-import { dynamicCalculate } from '../../common/dynamicCalculate';
+import { IButton } from '../../types/interfaces';
+import { handleKeyDown } from '../../common/utils/handle-key-down';
+import { getLastElem } from '../../common/utils/get-last-button';
+import { operationExists } from '../../common/utils/operation-exists';
+import { dotAllowed } from '../../common/utils/dot-allowed';
+import { calculate } from '../../common/utils/calculate';
+import { getQueryString } from '../../common/utils/get-query-string';
+import { updatedQuery } from '../../common/utils/updated-query';
 
 const Calculator: FC = () => {
   const [query, setQuery] = useState<IButton[]>([]);
   const [result, setResult] = useState('');
 
   useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      const char = e.key;
-      for (const btn of BUTTONS) {
-        if (char === btn.char || char === btn.alias) {
-          handleClick(btn.char, btn.operation);
-          break;
-        }
-      }
-      e.preventDefault();
-    }
-
-    document.addEventListener('keydown', handleKeyDown);
+    const handler = handleKeyDown(handleClick);
+    document.addEventListener('keydown', handler);
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handler);
     };
   }, []);
 
@@ -35,70 +30,19 @@ const Calculator: FC = () => {
       if (operationExists(prevQuery) && operation) return [...prevQuery];
       if (char === '.' && !dotAllowed(prevQuery)) return [...prevQuery];
       if (char === '=') {
-        calculate(prevQuery);
+        calculate(prevQuery).then((result) => {
+          setQuery(updatedQuery(result));
+          setResult(result);
+        });
         return [...prevQuery];
       }
       return [...prevQuery, { char, operation }];
     });
   }
+
   function handleClear() {
     setQuery([]);
     setResult('');
-  }
-
-  async function calculate(query: IButton[]) {
-    const operands: string[] = ['', ''];
-    let operation = '';
-    let operandIndex = 0;
-    for (const elem of query) {
-      if (elem.operation) {
-        operandIndex++;
-        operation = elem.char;
-        continue;
-      }
-      operands[operandIndex] += elem.char;
-    }
-
-    const result = await dynamicCalculate(operands, operation);
-    updateQuery(result);
-    setResult(result);
-  }
-
-  function updateQuery(result: string) {
-    setQuery((prevQuery) => {
-      if (result === 'Error!') return [];
-      const res = result.split('').map((char) => {
-        return { char, operation: false };
-      });
-      return res;
-    });
-  }
-  function dotAllowed(query: IButton[]): boolean {
-    const lastElem = getLastElem(query);
-    if (lastElem.operation || lastElem.char === '' || lastElem.char === '.') return false;
-
-    for (const elem of [...query].reverse()) {
-      if (elem.operation) break;
-      if (elem.char === '.') return false;
-    }
-    return true;
-  }
-  function operationExists(query: IButton[]): boolean {
-    for (const item of query) {
-      if (item.operation) return true;
-    }
-    return false;
-  }
-  function getLastElem(query: IButton[]): IButton {
-    if (query.length === 0)
-      return {
-        char: '',
-        operation: false,
-      };
-    else return query[query.length - 1];
-  }
-  function getQueryString(query: IButton[]): string {
-    return query.map((elem) => elem.char).join('');
   }
 
   return (

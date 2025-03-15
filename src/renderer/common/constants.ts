@@ -1,4 +1,4 @@
-import { IButton } from './interfaces';
+import { IButton } from '../types/interfaces';
 
 export const BUTTONS: IButton[] = [
   {

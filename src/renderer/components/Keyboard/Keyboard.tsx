@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styles from './Keyboard.module.scss';
 import Button from '../Button/Button';
 import { BUTTONS } from '../../common/constants';
-import { Type } from '../../common/enums';
+import { Type } from '../../types/enums';
 
 interface KeyboardProps {
   onClick: (code: string, operation: boolean) => void;

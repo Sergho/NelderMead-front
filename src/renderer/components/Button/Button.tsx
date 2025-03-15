@@ -1,6 +1,6 @@
 import { FC, MouseEvent } from 'react';
 import styles from './Button.module.scss';
-import { Type } from '../../common/enums';
+import { Type } from '../../types/enums';
 import clsx from 'clsx';
 
 export interface ButtonProps {
