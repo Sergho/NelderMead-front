@@ -16,7 +16,8 @@
     "build": "npm run build:backend && npm run build:electron && npm run build:react && npm run build:express",
     "prod:electron": "electron ./dist/main/index.js",
     "prod:react": "vite preview --port 3000",
-    "prod:express": "node ./dist/server/index.js"
+    "prod:express": "node ./dist/server/index.js",
+    "compile": "electron-builder"
   },
   "author": {
     "name": "Sergho",
@@ -36,6 +37,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "concurrently": "^9.1.2",
     "electron": "^35.0.1",
+    "electron-builder": "^25.1.8",
     "sass": "^1.85.1",
     "typescript": "^5.8.2",
     "vite": "^6.2.2"
