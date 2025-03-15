@@ -12,5 +12,5 @@ app.on('ready', () => {
     height: WINDOW_SIZE.height,
   });
 
-  mainWindow.loadURL(process.env.FRONTEND_HOST);
+  mainWindow.loadURL(`${process.env.HOST}:${process.env.FRONTEND_PORT}`);
 });
