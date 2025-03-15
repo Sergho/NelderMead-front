@@ -5,7 +5,7 @@
   "scripts": {
     "dev:server": "ts-node ./src/server/index.ts",
     "dev:react": "vite",
-    "dev:electron": "tsc && electron ./dist/src/main/index.js",
+    "dev:electron": "tsc && electron ./dist/main/index.js",
     "dev:browser": "concurrently \"npm run dev:server\" \"npm run dev:react\"",
     "dev": "concurrently \"npm run dev:browser\" \"npm run dev:electron\"",
     "configure:backend": "cmake -B build -S external/backend",
@@ -37,6 +37,7 @@
     "axios": "^1.8.3",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "ffi-napi": "^4.0.3",
     "react": "^19.0.0",
