@@ -1,10 +1,16 @@
 import { FC } from 'react';
 import styles from './Result.module.scss';
 
-const Result: FC = () => {
+interface ResultProps {
+  content: string;
+}
+
+const Result: FC<ResultProps> = (props: ResultProps) => {
+  const { content } = props;
+
   return (
     <div className={styles.result}>
-      <input className={styles.input} type="text" value={1234567890} />
+      <p className={styles.input}>{content}</p>
     </div>
   );
 };

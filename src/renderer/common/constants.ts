@@ -61,6 +61,7 @@ export const BUTTONS: IButton[] = [
   {
     char: '=',
     operation: false,
+    alias: 'Enter',
   },
   {
     char: '/',

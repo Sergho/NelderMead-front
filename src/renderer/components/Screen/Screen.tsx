@@ -6,15 +6,16 @@ import Clear from '../Clear/Clear';
 
 interface ScreenProps {
   query: string;
+  result: string;
 }
 
 const Screen: FC<ScreenProps> = (props: ScreenProps) => {
-  const { query } = props;
+  const { query, result } = props;
 
   return (
     <div className={styles.screen}>
       <Query content={query} />
-      <Result />
+      <Result content={result} />
       <Clear />
     </div>
   );

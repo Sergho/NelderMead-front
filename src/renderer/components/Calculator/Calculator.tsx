@@ -7,6 +7,7 @@ import { BUTTONS } from '../../common/constants';
 
 const Calculator: FC = () => {
   const [query, setQuery] = useState<IButton[]>([]);
+  const [result, setResult] = useState('');
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -31,8 +32,17 @@ const Calculator: FC = () => {
       if (lastElem.operation && operation) prevQuery.pop();
       if (operationExists(prevQuery) && operation) return [...prevQuery];
       if (char === '.' && !dotAllowed(prevQuery)) return [...prevQuery];
-      if (char === '=') return [...prevQuery];
+      if (char === '=') {
+        calculate(prevQuery);
+        return [...prevQuery];
+      }
       return [...prevQuery, { char, operation }];
+    });
+  }
+
+  function calculate(query: IButton[]) {
+    setResult((prevResult) => {
+      return Date.now().toString();
     });
   }
 
@@ -66,7 +76,7 @@ const Calculator: FC = () => {
 
   return (
     <div className={styles.calculator}>
-      <Screen query={getQueryString(query)} />
+      <Screen result={result} query={getQueryString(query)} />
       <Keyboard onClick={handleClick} />
     </div>
   );
