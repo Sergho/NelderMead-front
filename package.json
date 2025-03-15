@@ -4,9 +4,10 @@
   "main": "./dist/main/index.js",
   "scripts": {
     "dev:react": "vite",
-    "dev:electron": "npm run build && electron ./dist/src/main/index.js",
+    "dev:electron": "tsc && electron ./dist/src/main/index.js",
     "dev": "concurrently \"npm run dev:react\" \"npm run dev:electron\"",
-    "build": "tsc"
+    "configure:backend": "cmake -B build -S external/backend",
+    "build:backend": "npm run configure:backend && cmake --build build"
   },
   "author": {
     "name": "Sergho",
