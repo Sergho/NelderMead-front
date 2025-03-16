@@ -1,6 +1,6 @@
 import express from 'express';
 import { config } from 'dotenv';
-import { CORS, ROUTES } from './settings';
+import { CORS, DLL_PATH, ROUTES } from './settings';
 import { OperationResponse } from './types/operation-response.type';
 import { OperationRequest } from './types/operation-request.type';
 
@@ -12,7 +12,7 @@ app.use(CORS);
 for (const route in ROUTES) {
   app.get(route, (req: OperationRequest, res: OperationResponse): void => {
     const { first, second } = req.query;
-    let result = String(ROUTES[route](+first, +second));
+    let result = String(ROUTES[route]([+first, +second]));
     res.json(result);
   });
 }

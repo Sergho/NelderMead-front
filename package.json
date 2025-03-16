@@ -1,7 +1,7 @@
 {
   "name": "nelder-mead",
   "version": "1.0.0",
-  "main": "./dist/main/index.js",
+  "main": "dist/main/index.js",
   "scripts": {
     "dev:express": "ts-node ./src/server/index.ts",
     "dev:react": "vite",
@@ -14,9 +14,9 @@
     "build:react": "vite build",
     "build:express": "tsc -p tsconfig.express.json",
     "build": "npm run build:backend && npm run build:electron && npm run build:react && npm run build:express",
-    "prod:electron": "electron ./dist/main/index.js",
-    "prod:react": "vite preview --port 3000",
-    "prod:express": "node ./dist/server/index.js",
+    "prod:electron": "ENV=prod electron ./dist/main/index.js",
+    "prod:react": "ENV=prod vite preview --port 3000",
+    "prod:express": "ENV=prod node ./dist/server/index.js",
     "compile": "electron-builder"
   },
   "author": {
@@ -48,9 +48,19 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "ffi-napi": "^4.0.3",
+    "ffi-rs": "^1.2.8",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "ts-node": "^10.9.2"
+  },
+  "build": {
+    "appId": "NelderMead",
+    "productName": "NelderMead",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "dist/**/*"
+    ]
   }
 }
