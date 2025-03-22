@@ -3,7 +3,17 @@ import cors from 'cors';
 import { HOST, FRONTEND_PORT } from '../settings';
 import { loadDLL } from './load-DLL';
 
-export const DLL_PATH = path.resolve(__dirname, '../../build/libNelderMead.so');
+export const DLL_PATH =
+	process.env.NELDERMEAD_ENV === 'dev'
+		? path.resolve(__dirname, '../backend/libNelderMead.so')
+		: path.join(
+				__dirname,
+				'../../../',
+				'app.asar.unpacked',
+				'dist',
+				'backend',
+				'libNelderMead.so'
+		  );
 export const CORS = cors({
 	origin: `${HOST}:${FRONTEND_PORT}`,
 });

@@ -1,14 +1,12 @@
 import { app, BrowserWindow } from 'electron';
 import { WINDOW_SIZE } from './settings';
-import { exec } from 'child_process';
+import path from 'path';
+import { HOST, FRONTEND_PORT } from '../settings';
 import { LoadURLWithRetry } from './load-url-with-retry';
-import { FRONTEND_PORT, HOST } from '../settings';
+import { startServer } from '../server';
 
-const childProcesses = [];
-
-if (process.env.ENV === 'prod') {
-	childProcesses.push(exec('npm run prod:express'));
-	childProcesses.push(exec('npm run prod:react'));
+if (process.env.NELDERMEAD_ENV !== 'dev') {
+	startServer();
 }
 
 app.on('ready', () => {
@@ -17,17 +15,15 @@ app.on('ready', () => {
 		height: WINDOW_SIZE.height,
 	});
 
-	LoadURLWithRetry(mainWindow, `${HOST}:${FRONTEND_PORT}`);
+	if (process.env.NELDERMEAD_ENV === 'dev') {
+		LoadURLWithRetry(mainWindow, `${HOST}:${FRONTEND_PORT}`);
+	} else {
+		mainWindow.loadFile(path.join(__dirname, '../../dist/renderer/index.html'));
+	}
 });
 
 app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') {
 		app.quit();
-	}
-});
-
-app.on('will-quit', () => {
-	for (const process of childProcesses) {
-		process.kill();
 	}
 });
