@@ -1,47 +1,84 @@
 {
-  "name": "nelder-mead",
-  "version": "1.0.0",
-  "main": "./dist/main/index.js",
-  "scripts": {
-    "dev:server": "ts-node ./src/server/index.ts",
-    "dev:react": "vite",
-    "dev:electron": "tsc && electron ./dist/main/index.js",
-    "dev:browser": "concurrently \"npm run dev:server\" \"npm run dev:react\"",
-    "dev": "concurrently \"npm run dev:browser\" \"npm run dev:electron\"",
-    "configure:backend": "cmake -B build -S external/backend",
-    "build:backend": "npm run configure:backend && cmake --build build"
-  },
-  "author": {
-    "name": "Sergho",
-    "email": "sergche04@gmail.com"
-  },
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "@types/axios": "^0.14.4",
-    "@types/cors": "^2.8.17",
-    "@types/electron": "^1.6.12",
-    "@types/express": "^5.0.0",
-    "@types/ffi-napi": "^4.0.10",
-    "@types/node": "^22.13.10",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "@vitejs/plugin-react": "^4.3.4",
-    "concurrently": "^9.1.2",
-    "electron": "^35.0.1",
-    "sass": "^1.85.1",
-    "typescript": "^5.8.2",
-    "vite": "^6.2.2"
-  },
-  "dependencies": {
-    "axios": "^1.8.3",
-    "clsx": "^2.1.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "ffi-napi": "^4.0.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "ts-node": "^10.9.2"
-  }
+	"name": "nelder-mead",
+	"version": "1.0.0",
+	"main": "dist/main/index.js",
+	"scripts": {
+		"dev:express": "NELDERMEAD_ENV=dev ts-node ./src/server/index.ts",
+		"dev:react": "NELDERMEAD_ENV=dev vite",
+		"dev:electron": "NELDERMEAD_ENV=dev tsc && electron ./dist/main/index.js",
+		"dev:browser": "NELDERMEAD_ENV=dev concurrently \"npm run dev:express\" \"npm run dev:react\"",
+		"dev": "NELDERMEAD_ENV=dev concurrently \"npm run dev:browser\" \"npm run dev:electron\"",
+		"configure:backend": "cmake -B dist/backend -S external/backend",
+		"build:backend": "npm run configure:backend && cmake --build dist/backend",
+		"build:electron": "tsc -p tsconfig.electron.json",
+		"build:react": "vite build",
+		"build:express": "tsc -p tsconfig.express.json",
+		"build": "npm run build:backend && npm run build:electron && npm run build:react && npm run build:express",
+		"prod:electron": "electron ./dist/main/index.js",
+		"prod:react": "vite preview --port 3000",
+		"prod:express": "node ./dist/server/index.js",
+		"compile": "electron-builder"
+	},
+	"author": {
+		"name": "Sergho",
+		"email": "sergche04@gmail.com"
+	},
+	"license": "ISC",
+	"description": "",
+	"devDependencies": {
+		"@types/axios": "^0.14.4",
+		"@types/cors": "^2.8.17",
+		"@types/electron": "^1.6.12",
+		"@types/express": "^5.0.0",
+		"@types/ffi-napi": "^4.0.10",
+		"@types/node": "^22.13.10",
+		"@types/react": "^19.0.10",
+		"@types/react-dom": "^19.0.4",
+		"@vitejs/plugin-react": "^4.3.4",
+		"concurrently": "^9.1.2",
+		"electron": "^35.0.1",
+		"electron-builder": "^25.1.8",
+		"sass": "^1.85.1",
+		"typescript": "^5.8.2",
+		"vite": "^6.2.2"
+	},
+	"dependencies": {
+		"axios": "^1.8.3",
+		"clsx": "^2.1.1",
+		"cors": "^2.8.5",
+		"dotenv": "^16.4.7",
+		"express": "^4.21.2",
+		"ffi-rs": "^1.2.8",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"ts-node": "^10.9.2"
+	},
+	"build": {
+		"appId": "NelderMead",
+		"productName": "NelderMead",
+		"asar": true,
+		"directories": {
+			"output": "dist"
+		},
+		"files": [
+			"dist/**/*"
+		],
+		"asarUnpack": [
+			"dist/backend/libNelderMead.so"
+		],
+		"linux": {
+			"target": [
+				"snap"
+			],
+			"category": "Utility"
+		},
+		"win": {
+			"target": [
+				"nsis",
+				"msi",
+				"portable"
+			],
+			"publisherName": "NelderMead"
+		}
+	}
 }
