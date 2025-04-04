@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import classes from './Tab.module.scss';
 import { FC } from 'react';
+import { Function } from '../Function/Function';
 
 interface TabProps {
   className?: string;
@@ -11,6 +12,7 @@ export const Tab: FC<TabProps> = (props: TabProps) => {
   return (
     <div className={clsx(className, classes.wrapper)}>
       <h1 className={classes.title}>Function</h1>
+      <Function className={classes.function} />
     </div>
   );
 };
