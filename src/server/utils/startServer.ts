@@ -1,6 +1,6 @@
 import express from 'express';
 import { BACKEND_PORT, HOST } from '../../constants';
-import { CORS, ROUTES } from '../config';
+import { CORS, ROUTES } from '../constants';
 import { OperationRequest } from '../types/operation-request.type';
 import { OperationResponse } from '../types/operation-response.type';
 

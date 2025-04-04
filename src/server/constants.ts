@@ -7,10 +7,7 @@ export const DLL_PATH = DLLPathResolve('libNelderMead.so');
 export const CORS = cors({
   origin: `${HOST}:${FRONTEND_PORT}`,
 });
-export const LIB = loadDLL(DLL_PATH, 'calculator');
+export const LIB = loadDLL('nelder-mead', DLL_PATH);
 export const ROUTES = {
   '/addition': LIB.NM_addition,
-  '/subtraction': LIB.NM_subtraction,
-  '/multiplication': LIB.NM_multiplication,
-  '/division': LIB.NM_division,
 };
