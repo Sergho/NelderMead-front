@@ -2,7 +2,7 @@ import { app, BrowserWindow } from 'electron';
 import path from 'path';
 import { getEnv } from '../../common/utils/getEnv';
 import { HOST, FRONTEND_PORT } from '../../settings';
-import { WINDOW_SIZE } from '../settings';
+import { WINDOW_SIZE } from '../constants';
 import { LoadURLWithRetry } from './load-url-with-retry';
 
 export const startApp = () => {

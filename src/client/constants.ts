@@ -1,4 +1,4 @@
-import { IButton } from '../types/interfaces';
+import { IButton } from './types/interfaces';
 
 export const CLOSE_BUTTON = 'Escape';
 export const BUTTONS: IButton[] = [
