@@ -1,5 +1,5 @@
 import path from 'path';
-import { getEnv } from '../../common/utils/getEnv';
+import { getEnv } from '../../common/utils/get-env';
 import { DLL_ERROR } from '../../constants';
 
 export const DLLPathResolve = (filename: string): string => {

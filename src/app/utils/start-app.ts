@@ -1,5 +1,5 @@
 import { app, BrowserWindow } from 'electron';
-import { getEnv } from '../../common/utils/getEnv';
+import { getEnv } from '../../common/utils/get-env';
 import { HOST, FRONTEND_PORT } from '../../constants';
 import { WINDOW_SIZE } from '../constants';
 import { LoadURLWithRetry } from './load-url-with-retry';
