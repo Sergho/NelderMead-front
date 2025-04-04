@@ -1,11 +1,16 @@
 import classes from './Aside.module.scss';
 import clsx from 'clsx';
 import { FC } from 'react';
+import { Toggle } from '../Toggle/Toggle';
 
-export interface AsideProps {
-  className: string;
+interface AsideProps {
+  className?: string;
 }
 export const Aside: FC<AsideProps> = (props: AsideProps) => {
   const { className } = props;
-  return <div className={clsx(className, classes.wrapper)}></div>;
+  return (
+    <div className={clsx(className, classes.wrapper)}>
+      <Toggle className={classes.toggle} />
+    </div>
+  );
 };
