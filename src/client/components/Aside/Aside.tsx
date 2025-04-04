@@ -1,7 +1,7 @@
 import classes from './Aside.module.scss';
 import clsx from 'clsx';
 import { FC } from 'react';
-import { Toggle } from '../Toggle/Toggle';
+import { Nav } from '../Nav/Nav';
 
 interface AsideProps {
   className?: string;
@@ -10,7 +10,7 @@ export const Aside: FC<AsideProps> = (props: AsideProps) => {
   const { className } = props;
   return (
     <div className={clsx(className, classes.wrapper)}>
-      <Toggle className={classes.toggle} />
+      <Nav className={classes.nav} />
     </div>
   );
 };

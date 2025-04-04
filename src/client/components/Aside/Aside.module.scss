@@ -1,9 +1,11 @@
 .wrapper {
-  background-color: var(--color-purple-2);
+  width: 500px;
+  height: 100vh;
+  background-color: var(--color-purple-3);
   box-shadow: var(--shadow-default);
 }
-.toggle {
+.nav {
   position: absolute;
-  top: 22px;
-  left: 22px;
+  top: 0;
+  left: 0;
 }

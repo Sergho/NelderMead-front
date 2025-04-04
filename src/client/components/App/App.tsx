@@ -6,7 +6,7 @@ import { Aside } from '../Aside/Aside';
 export const App: FC = () => {
   return (
     <div>
-      <Graph className={classes.graph} />
+      <Graph />
       <Aside className={classes.aside} />
     </div>
   );
