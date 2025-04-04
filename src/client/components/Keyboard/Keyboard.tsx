@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './Keyboard.module.scss';
 import Button from '../Button/Button';
-import { BUTTONS } from '../../common/constants';
+import { BUTTONS } from '../../constants';
 import { Type } from '../../types/enums';
 
 interface KeyboardProps {

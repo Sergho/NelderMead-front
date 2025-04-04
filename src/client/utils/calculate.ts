@@ -1,4 +1,4 @@
-import { IButton } from '../../types/interfaces';
+import { IButton } from '../types/interfaces';
 import { dynamicCalculate } from './dynamic-calculate';
 
 export const calculate = async (query: IButton[]): Promise<string> => {

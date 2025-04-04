@@ -1,4 +1,4 @@
-import { IButton } from '../../types/interfaces';
+import { IButton } from '../types/interfaces';
 import { getLastElem } from './get-last-button';
 
 export const dotAllowed = (query: IButton[]): boolean => {

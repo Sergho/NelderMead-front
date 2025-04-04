@@ -1,4 +1,4 @@
-import { IButton } from '../../types/interfaces';
+import { IButton } from '../types/interfaces';
 
 export const getLastElem = (query: IButton[]): IButton => {
   if (query.length === 0)

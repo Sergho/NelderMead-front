@@ -3,13 +3,13 @@ import styles from './Calculator.module.scss';
 import Screen from '../Screen/Screen';
 import Keyboard from '../Keyboard/Keyboard';
 import { IButton } from '../../types/interfaces';
-import { handleKeyDown } from '../../common/utils/handle-key-down';
-import { getLastElem } from '../../common/utils/get-last-button';
-import { operationExists } from '../../common/utils/operation-exists';
-import { dotAllowed } from '../../common/utils/dot-allowed';
-import { calculate } from '../../common/utils/calculate';
-import { getQueryString } from '../../common/utils/get-query-string';
-import { updatedQuery } from '../../common/utils/updated-query';
+import { calculate } from '../../utils/calculate';
+import { dotAllowed } from '../../utils/dot-allowed';
+import { getLastElem } from '../../utils/get-last-button';
+import { getQueryString } from '../../utils/get-query-string';
+import { handleKeyDown } from '../../utils/handle-key-down';
+import { operationExists } from '../../utils/operation-exists';
+import { updatedQuery } from '../../utils/updated-query';
 
 const Calculator: FC = () => {
   const [query, setQuery] = useState<IButton[]>([]);

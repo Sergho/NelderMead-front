@@ -1,4 +1,4 @@
-import { IButton } from '../../types/interfaces';
+import { IButton } from '../types/interfaces';
 
 export const operationExists = (query: IButton[]): boolean => {
   for (const item of query) {
