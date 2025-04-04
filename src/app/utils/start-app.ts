@@ -1,9 +1,9 @@
 import { app, BrowserWindow } from 'electron';
-import path from 'path';
 import { getEnv } from '../../common/utils/getEnv';
-import { HOST, FRONTEND_PORT } from '../../settings';
+import { HOST, FRONTEND_PORT } from '../../constants';
 import { WINDOW_SIZE } from '../constants';
 import { LoadURLWithRetry } from './load-url-with-retry';
+import { LoadHTML } from './html-path-resolve';
 
 export const startApp = () => {
   app.on('ready', () => {
@@ -15,7 +15,7 @@ export const startApp = () => {
     if (getEnv() === 'dev') {
       LoadURLWithRetry(mainWindow, `${HOST}:${FRONTEND_PORT}`);
     } else {
-      mainWindow.loadFile(path.join(__dirname, '../../dist/renderer/index.html'));
+      LoadHTML(mainWindow);
     }
   });
 

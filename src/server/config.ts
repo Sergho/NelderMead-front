@@ -1,20 +1,9 @@
-import path from 'path';
 import cors from 'cors';
-import { HOST, FRONTEND_PORT } from '../settings';
+import { HOST, FRONTEND_PORT } from '../constants';
 import { loadDLL } from './load-DLL';
-import { getEnv } from '../common/utils/getEnv';
+import { DLLPathResolve } from './utils/DLLPathResolve';
 
-export const DLL_PATH =
-  getEnv() === 'dev'
-    ? path.resolve(__dirname, '../../dist/backend/libNelderMead.so')
-    : path.join(
-        __dirname,
-        '../../../',
-        'app.asar.unpacked',
-        'dist',
-        'backend',
-        'libNelderMead.so'
-      );
+export const DLL_PATH = DLLPathResolve('libNelderMead.so');
 export const CORS = cors({
   origin: `${HOST}:${FRONTEND_PORT}`,
 });

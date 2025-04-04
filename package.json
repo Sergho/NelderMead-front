@@ -1,7 +1,7 @@
 {
   "name": "nelder-mead",
   "version": "1.0.0",
-  "main": "dist/main/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "backend:configure": "cmake -B dist/backend -S external/backend",
     "backend:build": "npm run backend:configure && cmake --build dist/backend",
@@ -9,6 +9,7 @@
     "dev:client": "NELDERMEAD_ENV=dev vite",
     "dev": "NELDERMEAD_ENV=dev concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "build": "npm run backend:build && tsc && vite build",
+    "launch": "NELDERMEAD_ENV=prod electron ./dist/index.js",
     "prod:electron": "electron ./dist/main/index.js",
     "prod:react": "vite preview --port 3000",
     "prod:express": "node ./dist/server/index.js",
