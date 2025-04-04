@@ -2,9 +2,10 @@ import path from 'path';
 import cors from 'cors';
 import { HOST, FRONTEND_PORT } from '../settings';
 import { loadDLL } from './load-DLL';
+import { getEnv } from '../common/utils/getEnv';
 
 export const DLL_PATH =
-  process.env.NELDERMEAD_ENV === 'dev'
+  getEnv() === 'dev'
     ? path.resolve(__dirname, '../../dist/backend/libNelderMead.so')
     : path.join(
         __dirname,
