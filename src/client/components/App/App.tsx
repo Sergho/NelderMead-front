@@ -1,7 +1,11 @@
+import classes from './App.module.scss';
 import { FC } from 'react';
+import { Graph } from '../Graph/Graph';
 
-const App: FC = () => {
-  return <h1>NelderMead App</h1>;
+export const App: FC = () => {
+  return (
+    <div>
+      <Graph className={classes.graph} />
+    </div>
+  );
 };
-
-export default App;
