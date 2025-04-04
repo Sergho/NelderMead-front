@@ -9,13 +9,9 @@ export const DLLPathResolve = (filename: string): string => {
     case 'prod':
       return path.resolve(__dirname, `../../backend/${filename}`);
     case 'app':
-      return path.join(
+      return path.resolve(
         __dirname,
-        '../../../',
-        'app.asar.unpacked',
-        'dist',
-        'backend',
-        filename
+        `../../../../app.asar.unpacked/dist/backend/${filename}`
       );
     default:
       throw DLL_ERROR;
