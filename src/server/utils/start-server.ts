@@ -11,7 +11,7 @@ export const startServer = () => {
   for (const route in ROUTES) {
     app.get(route, (req: OperationRequest, res: OperationResponse): void => {
       const { first, second } = req.query;
-      let result = String(ROUTES[route]([+first, +second]));
+      const result = String(ROUTES[route]([+first, +second]));
       res.json(result);
     });
   }
