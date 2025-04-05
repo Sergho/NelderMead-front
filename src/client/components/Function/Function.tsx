@@ -13,7 +13,9 @@ export const Function: FC<FunctionProps> = (props: FunctionProps) => {
   return (
     <div className={clsx(className, classes.wrapper)}>
       <Area className={classes.area} />
-      <Button className={classes.button}>Launch</Button>
+      <Button className={classes.button} rounded>
+        Launch
+      </Button>
     </div>
   );
 };
