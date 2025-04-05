@@ -29,15 +29,15 @@ export const Input: FC<InputProps> = (props: InputProps) => {
   }
 
   return (
-    <div>
+    <div className={clsx(className, classes.wrapper)}>
       <input
-        className={clsx(className, classes.input)}
+        className={classes.input}
         ref={inputRef}
         type="text"
         value={value}
         onChange={handleEvent}
       />
-      <span className={clsx(className, classes.buffer)} ref={spanRef} />
+      <span className={classes.buffer} ref={spanRef} />
     </div>
   );
 };
