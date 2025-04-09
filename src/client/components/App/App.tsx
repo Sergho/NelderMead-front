@@ -1,7 +1,13 @@
+import classes from './App.module.scss';
 import { FC } from 'react';
+import { Graph } from '../Graph/Graph';
+import { Aside } from '../Aside/Aside';
 
-const App: FC = () => {
-  return <h1>NelderMead App</h1>;
+export const App: FC = () => {
+  return (
+    <div>
+      <Graph />
+      <Aside className={classes.aside} />
+    </div>
+  );
 };
-
-export default App;
