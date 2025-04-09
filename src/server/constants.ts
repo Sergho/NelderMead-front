@@ -9,5 +9,6 @@ export const CORS = cors({
 });
 export const LIB = loadDLL('nelder-mead', DLL_PATH);
 export const ROUTES = {
-  '/addition': LIB.NM_addition,
+  '/create-tree': LIB.create_tree,
+  // '/addition': LIB.NM_addition,
 };

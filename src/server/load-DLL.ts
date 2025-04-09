@@ -6,10 +6,10 @@ export const loadDLL = (name: string, path: string) => {
     path: path,
   });
   return define({
-    NM_addition: {
+    create_tree: {
       library: name,
-      retType: DataType.Double,
-      paramsType: [DataType.Double, DataType.Double],
+      retType: DataType.External,
+      paramsType: [DataType.String],
     },
   });
 };
