@@ -1,0 +1,29 @@
+.wrapper {
+  box-sizing: border-box;
+  width: auto;
+  position: relative;
+}
+.input,
+.buffer {
+  width: auto;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  min-width: 23px;
+  background-color: transparent;
+  border: none;
+  font-family: 'Fira Code';
+  color: var(--color-purple-2);
+  font-weight: 600;
+  font-size: 32px;
+  letter-spacing: 5px;
+  &:focus {
+    background-color: var(--color-purple-3);
+  }
+}
+.buffer {
+  white-space: pre;
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+}

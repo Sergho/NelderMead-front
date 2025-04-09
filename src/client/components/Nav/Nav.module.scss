@@ -1,0 +1,13 @@
+.wrapper {
+  width: 88px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+.item {
+  margin: 11px 22px;
+  &:nth-child(1) {
+    margin-top: 22px;
+  }
+}
