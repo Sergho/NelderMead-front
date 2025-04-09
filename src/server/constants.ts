@@ -8,7 +8,3 @@ export const CORS = cors({
   origin: `${HOST}:${FRONTEND_PORT}`,
 });
 export const LIB = loadDLL('nelder-mead', DLL_PATH);
-export const ROUTES = {
-  '/create-tree': LIB.create_tree,
-  // '/addition': LIB.NM_addition,
-};
