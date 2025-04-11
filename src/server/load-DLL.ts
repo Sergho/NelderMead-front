@@ -11,5 +11,15 @@ export const loadDLL = (name: string, path: string) => {
       retType: DataType.External,
       paramsType: [DataType.String],
     },
+    print_tree: {
+      library: name,
+      retType: DataType.String,
+      paramsType: [DataType.External],
+    },
+    delete_tree: {
+      library: name,
+      retType: DataType.Void,
+      paramsType: [DataType.External],
+    },
   });
 };

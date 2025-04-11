@@ -5,7 +5,9 @@ class TreeController {
   async createTree(req: CreateTreeRequest, res: CreateTreeResponse) {
     const { expression } = req.query;
     const treePtr = LIB.create_tree([expression]);
-    res.status(200).json({ pointer: treePtr });
+    const json = LIB.print_tree([treePtr]);
+    LIB.delete_tree([treePtr]);
+    res.status(200).json({ tree: JSON.parse(json) });
   }
 }
 

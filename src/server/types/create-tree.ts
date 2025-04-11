@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { JsExternal } from 'ffi-rs';
 
 export type CreateTreeRequest = Request<
   object,
@@ -10,4 +9,4 @@ export type CreateTreeRequest = Request<
   }
 >;
 
-export type CreateTreeResponse = Response<{ pointer: JsExternal }>;
+export type CreateTreeResponse = Response<{ tree: string }>;
