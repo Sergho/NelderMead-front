@@ -13,6 +13,7 @@ export const Tab: FC<TabProps> = (props: TabProps) => {
   const { className } = props;
 
   const [expression, setExpression] = useState('');
+  const [logs, setLogs] = useState('');
 
   async function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
@@ -20,7 +21,8 @@ export const Tab: FC<TabProps> = (props: TabProps) => {
   }
 
   async function handleSubmit() {
-    console.log(await createTree(expression));
+    const tree = await createTree(expression);
+    setLogs(JSON.stringify(tree, null, 2));
   }
 
   return (
@@ -32,7 +34,7 @@ export const Tab: FC<TabProps> = (props: TabProps) => {
         expression={expression}
         className={classes.function}
       />
-      <Log />
+      <Log logs={logs} />
     </div>
   );
 };
