@@ -10,10 +10,21 @@ interface TextProps {
 
 export const Text: FC<TextProps> = (props: TextProps) => {
   const { className, content } = props;
-  console.log(content);
+
+  const getRows = (): string[] => {
+    if (content.length === 0) return [];
+    return content.split('\n');
+  };
+
   return (
     <div className={clsx(className, classes.wrapper)}>
-      <Row index={1}>{content || ''}</Row>
+      {getRows().map((row: string, index: number) => {
+        return (
+          <Row key={index} index={index}>
+            {row}
+          </Row>
+        );
+      })}
     </div>
   );
 };
