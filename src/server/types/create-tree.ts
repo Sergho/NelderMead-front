@@ -9,4 +9,4 @@ export type CreateTreeRequest = Request<
   }
 >;
 
-export type CreateTreeResponse = Response<{ tree: string }>;
+export type CreateTreeResponse = Response<{ tree: string } | { message: string }>;

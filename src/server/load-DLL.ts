@@ -16,7 +16,22 @@ export const loadDLL = (name: string, path: string) => {
       retType: DataType.String,
       paramsType: [DataType.External],
     },
-    delete_tree: {
+    get_value_tree: {
+      library: name,
+      retType: DataType.External,
+      paramsType: [DataType.External],
+    },
+    has_error_tree: {
+      library: name,
+      retType: DataType.Boolean,
+      paramsType: [DataType.External],
+    },
+    get_error_tree: {
+      library: name,
+      retType: DataType.String,
+      paramsType: [DataType.External],
+    },
+    delete_response_tree: {
       library: name,
       retType: DataType.Void,
       paramsType: [DataType.External],
