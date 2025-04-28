@@ -1,6 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const addon = require('../addon/build/Release/mymath.node');
 
-type DivideType = (a: number, b: number) => number;
+interface ExpressionTreeClass {
+  createTree(expression: string): ExpressionTreeObject;
+}
 
-export const divide: DivideType = addon.divide;
+interface ExpressionTreeObject {
+  evaluate(point: number[]): number;
+  checkNumberVariables(expected: number): boolean;
+  jsonTree(): string;
+  getNumberVariables(): number;
+}
+
+export const ExpressionTree: ExpressionTreeClass = addon.ExpressionTree;

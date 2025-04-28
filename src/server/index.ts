@@ -1,7 +1,8 @@
-import { startServer } from './utils/start-server';
+// import { startServer } from './utils/start-server';
 
-startServer();
+// startServer();
 
-import { divide } from '../addon/binding';
+import { ExpressionTree } from '../addon/binding';
 
-console.log(divide(4, 6));
+const tree = ExpressionTree.createTree('5 + 5');
+console.log(tree.jsonTree());
