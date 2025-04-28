@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
+    "addon:build": "cmake-js compile --directory src/addon",
     "backend:configure": "cmake -B dist/backend -S external/backend",
     "backend:build": "npm run backend:configure && cmake --build dist/backend",
     "dev:server": "NELDERMEAD_ENV=dev ts-node ./src/server/index.ts",
@@ -45,10 +46,12 @@
   "dependencies": {
     "axios": "^1.8.3",
     "clsx": "^2.1.1",
+    "cmake-js": "^7.3.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "ffi-rs": "^1.2.8",
+    "node-addon-api": "^8.3.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "ts-node": "^10.9.2"
