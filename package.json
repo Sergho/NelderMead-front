@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "addon:build": "cmake-js compile --directory src/addon",
     "backend:configure": "cmake -B dist/backend -S external/backend",
     "backend:build": "npm run backend:configure && cmake --build dist/backend",
+    "copy:lib": "mkdir src/addon/lib && cp dist/backend/*.so src/addon/lib",
+    "copy:include": "cp -r external/backend/include src/addon",
+    "addon:build": "npm run backend:build && npm run copy:lib && npm run copy:include && cmake-js compile --directory src/addon",
     "dev:server": "NELDERMEAD_ENV=dev ts-node ./src/server/index.ts",
     "dev:client": "NELDERMEAD_ENV=dev vite",
     "dev": "NELDERMEAD_ENV=dev concurrently \"npm run dev:server\" \"npm run dev:client\"",
