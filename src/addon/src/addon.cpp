@@ -100,21 +100,37 @@ class NelderMeadAddon : public Napi::ObjectWrap<NelderMeadAddon> {
       return env.Null();
     }
 
-    int number = info[0].As<Napi::Number>().Int32Value();
-    bool result = tree->check_number_variables(number);
-    return Napi::Boolean::New(env, result);
+    try {
+      int number = info[0].As<Napi::Number>().Int32Value();
+      bool result = tree->check_number_variables(number);
+      return Napi::Boolean::New(env, result);
+    } catch (const std::exception& e) {
+      Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+      return env.Null();
+    }
   }
 
   Napi::Value JsonTree(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
-    std::string json = tree->json_tree();
-    return Napi::String::New(env, json);
+
+    try {
+      std::string json = tree->json_tree();
+      return Napi::String::New(env, json);
+    } catch (const std::exception& e) {
+      Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+      return env.Null();
+    }
   }
 
   Napi::Value GetNumberVariables(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
-    int number = tree->get_number_variables();
-    return Napi::Number::New(env, number);
+    try {
+      int number = tree->get_number_variables();
+      return Napi::Number::New(env, number);
+    } catch (const std::exception& e) {
+      Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
+      return env.Null();
+    }
   }
 };
 
