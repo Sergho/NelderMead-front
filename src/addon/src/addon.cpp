@@ -1,5 +1,6 @@
 #include <napi.h>
 
+#include <iostream>
 #include <vector>
 
 #include "expression_tree.h"
