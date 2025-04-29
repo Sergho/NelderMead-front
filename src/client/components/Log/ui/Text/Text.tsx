@@ -11,18 +11,13 @@ interface TextProps {
 export const Text: FC<TextProps> = (props: TextProps) => {
   const { className, content } = props;
   const rows = content.length === 0 ? [] : content.split('\n');
-  const indexRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const lastRef = useRef<HTMLSpanElement>(null);
   const [indexWidth, setIndexWidth] = useState(0);
 
   useEffect(() => {
-    const widths = indexRefs.current
-      .filter((ref) => ref !== null)
-      .map((ref) => ref?.offsetWidth || 0);
-
-    console.log(widths);
-
-    const maxWidth = Math.max(...widths, 0);
-    setIndexWidth(maxWidth);
+    const width = lastRef.current?.offsetWidth || 0;
+    console.log(lastRef.current);
+    setIndexWidth(width);
   }, [content]);
 
   return (
@@ -32,10 +27,8 @@ export const Text: FC<TextProps> = (props: TextProps) => {
           <Row
             key={index}
             index={index}
-            indexWidth={indexWidth}
-            ref={(el) => {
-              indexRefs.current[index] = el;
-            }}
+            indexWidth={index !== rows.length - 1 ? indexWidth : null}
+            ref={index === rows.length - 1 ? lastRef : null}
           >
             {row}
           </Row>
