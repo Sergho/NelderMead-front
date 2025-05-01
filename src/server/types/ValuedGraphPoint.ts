@@ -1,5 +1,5 @@
 import { GraphPoint } from './GraphPoint';
 
-export interface ValuesGraphPoint extends GraphPoint {
+export interface ValuedGraphPoint extends GraphPoint {
   value: number;
 }

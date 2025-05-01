@@ -1,5 +1,5 @@
 import { GraphPoint } from '../../GraphPoint';
-import { ValuesGraphPoint } from '../../ValuedGraphPoint';
+import { ValuedGraphPoint } from '../../ValuedGraphPoint';
 
 // TODO replace expression by tree json
 export interface GetGraphRequestDto {
@@ -9,5 +9,5 @@ export interface GetGraphRequestDto {
   interval: number;
 }
 export interface GetGraphResponseDto {
-  points: ValuesGraphPoint[];
+  points: ValuedGraphPoint[];
 }

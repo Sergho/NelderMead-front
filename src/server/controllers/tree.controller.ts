@@ -1,4 +1,5 @@
 import { ExpressionTree } from '../../addon/binding';
+import { treeService } from '../services/tree.service';
 import { DtoRequest } from '../types/dto/dto-request';
 import { DtoResponse } from '../types/dto/dto-response';
 import { CreateTreeRequestDto, CreateTreeResponseDto } from '../types/dto/tree/create-tree.dto';
@@ -16,7 +17,15 @@ class TreeController {
     }
   }
 
-  async getGraph(req: DtoRequest<GetGraphRequestDto>, res: DtoResponse<GetGraphResponseDto>) {}
+  async getGraph(req: DtoRequest<GetGraphRequestDto>, res: DtoResponse<GetGraphResponseDto>) {
+    const dto = req.query;
+    try {
+      const points = treeService.getGraph(dto);
+      res.status(200).json({ points });
+    } catch (error) {
+      res.status(401).json({ message: error });
+    }
+  }
 }
 
 export const treeController = new TreeController();
