@@ -1,11 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const addon = require('../addon/build/Release/mymath.node');
 
-interface ExpressionTreeClass {
+export interface ExpressionTreeClass {
   createTree(expression: string): ExpressionTreeObject;
 }
 
-interface ExpressionTreeObject {
+export interface ExpressionTreeObject {
   evaluate(point: number[]): number;
   checkNumberVariables(expected: number): boolean;
   jsonTree(): string;
