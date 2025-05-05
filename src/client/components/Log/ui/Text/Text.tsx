@@ -25,8 +25,8 @@ export const Text: FC<TextProps> = (props: TextProps) => {
       {rows.map((row: string, index: number) => {
         return (
           <Row
-            key={index}
-            index={index}
+            key={index + 1}
+            index={index + 1}
             indexWidth={index !== rows.length - 1 ? indexWidth : null}
             ref={index === rows.length - 1 ? lastRef : null}
           >
