@@ -1,3 +1,0 @@
-[submodule "external/backend"]
-	path = external/backend
-	url = https://github.com/sdanils/NelderMead_dll
