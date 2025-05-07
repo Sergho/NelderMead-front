@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import classes from './Graph.module.scss';
 import { FC } from 'react';
 import Plot from 'react-plotly.js';
+import { PLOT_OPTIONS } from '../../constants';
 
 interface GraphProps {
   className?: string;
@@ -17,18 +18,10 @@ export const Graph: FC<GraphProps> = (props: GraphProps) => {
           {
             x: [1, 2, 3],
             y: [2, 6, 3],
-            type: 'scatter',
-            mode: 'lines+markers',
+            ...PLOT_OPTIONS.data,
           },
         ]}
-        layout={{
-          dragmode: 'pan',
-          autosize: true,
-          paper_bgcolor: 'rgba(0,0,0,0)',
-          plot_bgcolor: 'rgba(0,0,0,0)',
-          xaxis: { linecolor: 'black', gridcolor: 'rgba(200,200,200,0.5)' },
-          yaxis: { linecolor: 'black', gridcolor: 'rgba(200,200,200,0.5)' },
-        }}
+        layout={PLOT_OPTIONS.layout}
       />
     </div>
   );
