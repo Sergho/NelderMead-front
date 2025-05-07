@@ -4,6 +4,7 @@ import { ChangeEvent, FC, useState } from 'react';
 import { Function } from '../Function/Function';
 import { Log } from '../Log/Log';
 import { createTree } from '../../axios/create-tree';
+import { getGraph } from '../../axios/get-graph';
 
 interface TabProps {
   className?: string;
@@ -23,6 +24,9 @@ export const Tab: FC<TabProps> = (props: TabProps) => {
   async function handleSubmit() {
     const tree = await createTree(expression);
     setLogs(JSON.stringify(tree, null, 2));
+
+    const graph = await getGraph(expression);
+    console.log(graph);
   }
 
   return (

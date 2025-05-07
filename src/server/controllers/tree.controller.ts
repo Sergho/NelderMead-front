@@ -13,7 +13,7 @@ class TreeController {
       const json = tree.jsonTree();
       res.status(200).json({ tree: JSON.parse(json) });
     } catch (error) {
-      res.status(401).json({ message: error.message });
+      res.status(400).json({ message: error.message });
     }
   }
 
@@ -21,9 +21,10 @@ class TreeController {
     const dto = req.query;
     try {
       const points = treeService.getGraph(dto);
+      console.log(points);
       res.status(200).json({ points });
     } catch (error) {
-      res.status(401).json({ message: error });
+      res.status(400).json({ message: error.message });
     }
   }
 }

@@ -4,10 +4,14 @@ import { GraphPoint } from '../types/GraphPoint';
 import { ValuedGraphPoint } from '../types/ValuedGraphPoint';
 
 class TreeService {
-  public getGraph(dto: GetGraphRequestDto): ValuedGraphPoint[] {
+  public getGraph(dto: GetGraphRequestDto): any {
     const { expression, from, to, interval } = dto;
 
-    if (from.coords.length != to.coords.length) throw new Error('Inequal edges dimensions');
+    if (!from?.coords || !to?.coords) {
+      throw new Error('Incorrect input format');
+    }
+
+    if (from?.coords?.length !== to?.coords?.length) throw new Error('Inequal edges dimensions');
 
     const dimension = from.coords.length;
     const actions = {
@@ -17,7 +21,7 @@ class TreeService {
     if (!(dimension in actions)) throw new Error('Incorrect dimension');
 
     const tree = ExpressionTree.createTree(expression);
-    const points = actions[dimension](tree, from, to, interval);
+    const points = actions[dimension](tree, from, to, +interval);
 
     const valuedPoints: ValuedGraphPoint[] = [];
     for (const point of points) {
@@ -31,7 +35,7 @@ class TreeService {
     from: GraphPoint,
     to: GraphPoint,
     interval: number,
-  ) {
+  ): GraphPoint[] {
     const min = Math.min(from.coords[0], to.coords[0]);
     const max = Math.max(from.coords[0], to.coords[0]);
 
