@@ -13,7 +13,7 @@ class TreeController {
       const json = tree.jsonTree();
       res.status(200).json({ tree: JSON.parse(json) });
     } catch (error) {
-      res.status(401).json({ message: error });
+      res.status(401).json({ message: error.message });
     }
   }
 

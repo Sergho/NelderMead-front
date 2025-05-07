@@ -84,7 +84,7 @@ class NelderMeadAddon : public Napi::ObjectWrap<NelderMeadAddon> {
         variables.push_back(val.As<Napi::Number>().DoubleValue());
       }
 
-      double result = tree->evaluate(tree->get_number_variables(), variables);
+      double result = tree->evaluate(variables);
       return Napi::Number::New(env, result);
     } catch (const std::invalid_argument& e) {
       Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
