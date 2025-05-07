@@ -1,18 +1,18 @@
 import clsx from 'clsx';
 import classes from './Input.module.scss';
 import { ChangeEvent, FC, useRef } from 'react';
-import { useAppDispatch } from '../../../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { setExpressionInput } from '../../../../features/function/expression-input.slice';
 
 interface InputProps {
   className?: string;
-  value?: string;
 }
 
 export const Input: FC<InputProps> = (props: InputProps) => {
-  const { className, value } = props;
+  const { className } = props;
 
   const dispatch = useAppDispatch();
+  const expression = useAppSelector((state) => state.expressionInput.expression);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const spanRef = useRef<HTMLSpanElement>(null);
@@ -26,7 +26,7 @@ export const Input: FC<InputProps> = (props: InputProps) => {
 
   function updateWidth() {
     if (inputRef.current && spanRef.current) {
-      spanRef.current.textContent = value;
+      spanRef.current.textContent = expression;
       const width = spanRef.current.clientWidth;
       inputRef.current.style.width = `${width}px`;
     }
@@ -38,7 +38,7 @@ export const Input: FC<InputProps> = (props: InputProps) => {
         className={classes.input}
         ref={inputRef}
         type="text"
-        value={value}
+        value={expression}
         onChange={handleChange}
       />
       <span className={classes.buffer} ref={spanRef} />
