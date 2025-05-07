@@ -1,17 +1,19 @@
 import clsx from 'clsx';
 import classes from './Area.module.scss';
-import { FC } from 'react';
+import { ChangeEventHandler, FC } from 'react';
 import { Input } from '../Input/Input';
 
 interface AreaProps {
   className?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  expression?: string;
 }
 
 export const Area: FC<AreaProps> = (props: AreaProps) => {
-  const { className } = props;
+  const { className, onChange, expression } = props;
   return (
     <div className={clsx(className, classes.wrapper)}>
-      <Input initialValue="x+1-" />
+      <Input value={expression} onChange={onChange} />
     </div>
   );
 };
