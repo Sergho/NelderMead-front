@@ -1,20 +1,28 @@
 import clsx from 'clsx';
 import classes from './Input.module.scss';
-import { ChangeEventHandler, FC, useRef } from 'react';
+import { ChangeEvent, FC, useRef } from 'react';
+import { useAppDispatch } from '../../../../app/hooks';
+import { setExpressionInput } from '../../../../features/function/expression-input.slice';
 
 interface InputProps {
   className?: string;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
   value?: string;
 }
 
 export const Input: FC<InputProps> = (props: InputProps) => {
-  const { className, onChange, value } = props;
+  const { className, value } = props;
+
+  const dispatch = useAppDispatch();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const spanRef = useRef<HTMLSpanElement>(null);
 
   document.fonts.ready.then(updateWidth);
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    dispatch(setExpressionInput(e.target.value));
+    updateWidth();
+  }
 
   function updateWidth() {
     if (inputRef.current && spanRef.current) {
@@ -31,7 +39,7 @@ export const Input: FC<InputProps> = (props: InputProps) => {
         ref={inputRef}
         type="text"
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
       />
       <span className={classes.buffer} ref={spanRef} />
     </div>

@@ -1,10 +1,11 @@
 import clsx from 'clsx';
 import classes from './Tab.module.scss';
-import { ChangeEvent, FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { Function } from '../Function/Function';
 import { Log } from '../Log/Log';
 import { createTree } from '../../axios/create-tree';
 import { getGraph } from '../../axios/get-graph';
+import { useAppSelector } from '../../app/hooks';
 
 interface TabProps {
   className?: string;
@@ -13,13 +14,9 @@ interface TabProps {
 export const Tab: FC<TabProps> = (props: TabProps) => {
   const { className } = props;
 
-  const [expression, setExpression] = useState('');
-  const [logs, setLogs] = useState('');
+  const expression = useAppSelector((state) => state.expressionInput.expression);
 
-  async function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    setExpression(value);
-  }
+  const [logs, setLogs] = useState('');
 
   async function handleSubmit() {
     const tree = await createTree(expression);
@@ -32,12 +29,7 @@ export const Tab: FC<TabProps> = (props: TabProps) => {
   return (
     <div className={clsx(className, classes.wrapper)}>
       <h1 className={classes.title}>Function</h1>
-      <Function
-        onInput={handleChange}
-        onSubmit={handleSubmit}
-        expression={expression}
-        className={classes.function}
-      />
+      <Function onSubmit={handleSubmit} expression={expression} className={classes.function} />
       <Log logs={logs} />
     </div>
   );
