@@ -8,7 +8,7 @@
     "copy:lib": "rm -rf src/addon/lib && mkdir src/addon/lib && cp -f dist/backend/*.so src/addon/lib",
     "copy:include": "cp -rf external/backend/include src/addon",
     "addon:build": "npm run backend:build && npm run copy:lib && npm run copy:include && cmake-js compile --directory src/addon",
-    "dev:server": "NELDERMEAD_ENV=dev ts-node ./src/server/index.ts",
+    "dev:server": "NELDERMEAD_ENV=dev nodemon ./src/server/index.ts",
     "dev:client": "NELDERMEAD_ENV=dev vite",
     "dev": "NELDERMEAD_ENV=dev concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "build": "npm run backend:build && tsc && vite build",
@@ -43,6 +43,7 @@
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "nodemon": "^3.1.10",
     "sass": "^1.85.1",
     "typescript": "^5.8.2",
     "vite": "^6.2.2"
