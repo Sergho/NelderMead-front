@@ -1,9 +1,12 @@
 import { ExpressionTree } from '../../addon/binding';
+import {
+  CreateTreeRequestDto,
+  CreateTreeResponseDto,
+} from '../../common/types/dto/tree/create-tree.dto';
+import { GetGraphRequestDto, GetGraphResponseDto } from '../../common/types/dto/tree/get-graph.dto';
 import { treeService } from '../services/tree.service';
 import { DtoRequest } from '../types/dto/dto-request';
 import { DtoResponse } from '../types/dto/dto-response';
-import { CreateTreeRequestDto, CreateTreeResponseDto } from '../types/dto/tree/create-tree.dto';
-import { GetGraphRequestDto, GetGraphResponseDto } from '../types/dto/tree/get-graph.dto';
 
 class TreeController {
   async createTree(req: DtoRequest<CreateTreeRequestDto>, res: DtoResponse<CreateTreeResponseDto>) {

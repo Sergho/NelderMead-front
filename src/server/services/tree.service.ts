@@ -1,7 +1,7 @@
 import { ExpressionTree, ExpressionTreeObject } from '../../addon/binding';
-import { GetGraphRequestDto } from '../types/dto/tree/get-graph.dto';
-import { GraphPoint } from '../types/GraphPoint';
-import { ValuedGraphPoint } from '../types/ValuedGraphPoint';
+import { GetGraphRequestDto } from '../../common/types/dto/tree/get-graph.dto';
+import { GraphPoint } from '../../common/types/GraphPoint';
+import { ValuedGraphPoint } from '../../common/types/ValuedGraphPoint';
 
 class TreeService {
   public getGraph(dto: GetGraphRequestDto): any {

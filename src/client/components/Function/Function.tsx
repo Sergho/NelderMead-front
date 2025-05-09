@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setLogs } from '../../features/logs/logs.slice';
 import { createTree } from '../../axios/create-tree';
 import { getGraph } from '../../axios/get-graph';
+import { setGraphPoints } from '../../features/graph/graph-points.slice';
 
 interface FunctionProps {
   className?: string;
@@ -23,7 +24,7 @@ export const Function: FC<FunctionProps> = (props: FunctionProps) => {
     dispatch(setLogs(JSON.stringify(tree, null, 2)));
 
     const graph = await getGraph(expression);
-    console.log(graph);
+    dispatch(setGraphPoints(graph.points));
   }
 
   return (
