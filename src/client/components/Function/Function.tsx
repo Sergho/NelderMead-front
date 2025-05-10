@@ -8,6 +8,7 @@ import { setLogs } from '../../features/logs/logs.slice';
 import { createTree } from '../../axios/create-tree';
 import { getGraph } from '../../axios/get-graph';
 import { setGraphPoints } from '../../features/graph/graph-points.slice';
+import { setAsideOpened } from '../../features/aside/aside.slice';
 
 interface FunctionProps {
   className?: string;
@@ -25,6 +26,8 @@ export const Function: FC<FunctionProps> = (props: FunctionProps) => {
 
     const graph = await getGraph(expression);
     dispatch(setGraphPoints(graph.points));
+
+    dispatch(setAsideOpened(false));
   }
 
   return (

@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const addon = require('../addon/build/Release/mymath.node');
+const addon = require('../addon/build/Release/nelder_mead_addon.node');
 
 export interface ExpressionTreeClass {
   createTree(expression: string): ExpressionTreeObject;

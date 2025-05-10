@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import classes from './Toggle.module.scss';
 import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { setAside } from '../../features/aside/aside.slice';
+import { setAsideOpened } from '../../features/aside/aside.slice';
 
 interface ToggleProps {
   className?: string;
@@ -11,11 +11,11 @@ interface ToggleProps {
 export const Toggle: FC<ToggleProps> = (props: ToggleProps) => {
   const { className } = props;
 
-  const opened = useAppSelector((state) => state.aside.opened);
+  const opened = useAppSelector((state) => state.asideOpened.opened);
   const dispatch = useAppDispatch();
 
   function handleClick() {
-    dispatch(setAside(!opened));
+    dispatch(setAsideOpened(!opened));
   }
 
   return (
