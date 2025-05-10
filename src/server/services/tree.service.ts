@@ -2,6 +2,7 @@ import { ExpressionTree, ExpressionTreeObject } from '../../addon/binding';
 import { GetGraphRequestDto } from '../../common/types/dto/tree/get-graph.dto';
 import { GraphPoint } from '../../common/types/GraphPoint';
 import { ValuedGraphPoint } from '../../common/types/ValuedGraphPoint';
+import { GRAPH_BREAK_DIVERGENCE } from '../constants';
 
 class TreeService {
   public getGraph(dto: GetGraphRequestDto): any {
@@ -24,8 +25,19 @@ class TreeService {
     const points = actions[dimension](tree, from, to, +interval);
 
     const valuedPoints: ValuedGraphPoint[] = [];
+    let prevValue: number = null;
     for (const point of points) {
-      valuedPoints.push({ ...point, value: tree.evaluate(point.coords) });
+      let value: number = null;
+      try {
+        value = tree.evaluate(point.coords);
+        if (Math.abs(prevValue - value) >= GRAPH_BREAK_DIVERGENCE)
+          throw new Error('Function break');
+      } catch {
+        value = null;
+      } finally {
+        valuedPoints.push({ ...point, value });
+        prevValue = value;
+      }
     }
 
     return valuedPoints;
