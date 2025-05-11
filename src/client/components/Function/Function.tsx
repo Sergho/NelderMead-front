@@ -25,7 +25,7 @@ export const Function: FC<FunctionProps> = (props: FunctionProps) => {
     dispatch(setLogs(JSON.stringify(tree, null, 2)));
 
     const graph = await getGraph(expression);
-    dispatch(setGraphPoints(graph.points));
+    dispatch(setGraphPoints({ ...graph }));
 
     dispatch(setAsideOpened(false));
   }

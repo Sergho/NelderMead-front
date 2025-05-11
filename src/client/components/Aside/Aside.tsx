@@ -12,7 +12,6 @@ export const Aside: FC<AsideProps> = (props: AsideProps) => {
   const { className } = props;
 
   const opened = useAppSelector((state) => state.asideOpened.opened);
-  console.log(opened);
 
   return (
     <div

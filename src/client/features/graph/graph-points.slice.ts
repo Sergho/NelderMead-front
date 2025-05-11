@@ -1,24 +1,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ValuedGraphPoint } from '../../../common/types/ValuedGraphPoint';
 
-interface GraphPointsState {
-  points: ValuedGraphPoint[];
+interface GraphState {
+  x: number[];
+  y: number[];
+  z?: number[];
 }
 
-const initialState: GraphPointsState = {
-  points: [],
+const initialState: GraphState = {
+  x: [],
+  y: [],
+  z: null,
 };
 
-export const GraphPointsSlice = createSlice({
-  name: 'graphDots',
+export const GraphSlice = createSlice({
+  name: 'graph',
   initialState,
   reducers: {
-    setGraphPoints: (state, action: PayloadAction<ValuedGraphPoint[]>) => {
-      state.points = action.payload;
+    setGraphPoints: (state, action: PayloadAction<GraphState>) => {
+      state.x = action.payload.x;
+      state.y = action.payload.y;
+      state.z = action.payload.z;
     },
   },
 });
 
-export const { setGraphPoints } = GraphPointsSlice.actions;
+export const { setGraphPoints } = GraphSlice.actions;
 
-export default GraphPointsSlice.reducer;
+export default GraphSlice.reducer;

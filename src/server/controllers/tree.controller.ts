@@ -24,7 +24,7 @@ class TreeController {
     const dto = req.query;
     try {
       const points = treeService.getGraph(dto);
-      res.status(200).json({ points });
+      res.status(200).json({ ...points });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }

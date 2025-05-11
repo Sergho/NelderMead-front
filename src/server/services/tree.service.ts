@@ -1,64 +1,100 @@
 import { ExpressionTree, ExpressionTreeObject } from '../../addon/binding';
 import { GetGraphRequestDto } from '../../common/types/dto/tree/get-graph.dto';
-import { GraphPoint } from '../../common/types/GraphPoint';
-import { ValuedGraphPoint } from '../../common/types/ValuedGraphPoint';
 import { GRAPH_BREAK_DIVERGENCE } from '../constants';
 
 class TreeService {
   public getGraph(dto: GetGraphRequestDto): any {
     const { expression, from, to, interval } = dto;
 
-    if (!from?.coords || !to?.coords) {
-      throw new Error('Incorrect input format');
-    }
+    const tree = ExpressionTree.createTree(expression);
+    const dimension = tree.getNumberVariables();
 
-    if (from?.coords?.length !== to?.coords?.length) throw new Error('Inequal edges dimensions');
-
-    const dimension = from.coords.length;
     const actions = {
-      1: this.getPoints2D,
+      1: this.getGraph2D,
+      2: this.getPoints3D,
     };
 
     if (!(dimension in actions)) throw new Error('Incorrect dimension');
 
-    const tree = ExpressionTree.createTree(expression);
-    const points = actions[dimension](tree, from, to, +interval);
+    return { ...actions[dimension](tree, from, to, +interval) };
+  }
+  private getGraph2D(
+    tree: ExpressionTreeObject,
+    from: number,
+    to: number,
+    interval: number,
+  ): { x: number[]; y: number[] } {
+    const min = Math.min(from, to);
+    const max = Math.max(from, to);
 
-    const valuedPoints: ValuedGraphPoint[] = [];
+    const result = {
+      x: [],
+      y: [],
+    };
+
     let prevValue: number = null;
-    for (const point of points) {
+    for (let i = min; i <= max; i += interval) {
+      result.x.push(i);
       let value: number = null;
       try {
-        value = tree.evaluate(point.coords);
+        value = tree.evaluate([i]);
         if (Math.abs(prevValue - value) >= GRAPH_BREAK_DIVERGENCE)
           throw new Error('Function break');
       } catch {
         value = null;
       } finally {
-        valuedPoints.push({ ...point, value });
+        result.y.push(value);
         prevValue = value;
       }
     }
 
-    return valuedPoints;
+    return result;
   }
-  private getPoints2D(
-    tree: ExpressionTreeObject,
-    from: GraphPoint,
-    to: GraphPoint,
-    interval: number,
-  ): GraphPoint[] {
-    const min = Math.min(from.coords[0], to.coords[0]);
-    const max = Math.max(from.coords[0], to.coords[0]);
 
-    const points: GraphPoint[] = [];
+  private getPoints3D(
+    tree: ExpressionTreeObject,
+    from: number,
+    to: number,
+    interval: number,
+  ): {
+    x: number[];
+    y: number[];
+    z: number[];
+  } {
+    const min = Math.min(from, to);
+    const max = Math.max(from, to);
+
+    const result = {
+      x: [],
+      y: [],
+      z: [],
+    };
+
     for (let i = min; i <= max; i += interval) {
-      points.push({
-        coords: [i],
-      });
+      result.x.push(i);
+      result.y.push(i);
     }
 
-    return points;
+    let prevValue: number;
+    for (const x of result.x) {
+      const line: number[] = [];
+      for (const y of result.y) {
+        let value: number = null;
+        try {
+          value = tree.evaluate([x, y]);
+          if (Math.abs(prevValue - value) >= GRAPH_BREAK_DIVERGENCE)
+            throw new Error('Function break');
+        } catch {
+          value = null;
+        } finally {
+          line.push(value);
+          prevValue = value;
+        }
+      }
+      result.z.push(line);
+    }
+
+    return result;
   }
 }
 
