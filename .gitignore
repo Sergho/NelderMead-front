@@ -2,3 +2,8 @@ dist
 build
 node_modules
 .env
+
+.vscode
+
+src/addon/lib
+src/addon/include

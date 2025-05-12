@@ -1,15 +1,16 @@
 import clsx from 'clsx';
 import classes from './Input.module.scss';
-import React, { ChangeEvent, FC, useRef, useState } from 'react';
+import { ChangeEventHandler, FC, useRef } from 'react';
 
 interface InputProps {
   className?: string;
-  initialValue?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  value?: string;
 }
 
 export const Input: FC<InputProps> = (props: InputProps) => {
-  const { className, initialValue } = props;
-  const [value, setValue] = useState(initialValue);
+  const { className, onChange, value } = props;
+
   const inputRef = useRef<HTMLInputElement>(null);
   const spanRef = useRef<HTMLSpanElement>(null);
 
@@ -23,11 +24,6 @@ export const Input: FC<InputProps> = (props: InputProps) => {
     }
   }
 
-  function handleEvent(e: ChangeEvent<HTMLInputElement>) {
-    setValue(e.target.value);
-    updateWidth();
-  }
-
   return (
     <div className={clsx(className, classes.wrapper)}>
       <input
@@ -35,7 +31,7 @@ export const Input: FC<InputProps> = (props: InputProps) => {
         ref={inputRef}
         type="text"
         value={value}
-        onChange={handleEvent}
+        onChange={onChange}
       />
       <span className={classes.buffer} ref={spanRef} />
     </div>
