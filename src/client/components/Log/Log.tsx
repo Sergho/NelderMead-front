@@ -4,14 +4,17 @@ import { FC } from 'react';
 import { Button } from '../Button/Button';
 import { Darkness, Size } from '../../types/enums';
 import { Text } from './ui/Text/Text';
+import { useAppSelector } from '../../app/hooks';
 
 interface LogProps {
   className?: string;
-  logs?: string;
 }
 
 export const Log: FC<LogProps> = (props: LogProps) => {
-  const { className, logs } = props;
+  const { className } = props;
+
+  const logs = useAppSelector((state) => state.logs.logs);
+
   return (
     <div className={clsx(className, classes.wrapper)}>
       <Text className={classes.text} content={logs} />

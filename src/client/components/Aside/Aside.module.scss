@@ -1,8 +1,14 @@
 .wrapper {
-  width: 500px;
+  width: 88px;
   height: 100vh;
   background-color: var(--color-purple-3);
   box-shadow: var(--shadow-default);
   display: flex;
   align-items: center;
+  transition: var(--transition);
+  overflow: hidden;
+
+  &.opened {
+    width: 500px;
+  }
 }

@@ -16,7 +16,6 @@ export const Text: FC<TextProps> = (props: TextProps) => {
 
   useEffect(() => {
     const width = lastRef.current?.offsetWidth || 0;
-    console.log(lastRef.current);
     setIndexWidth(width);
   }, [content]);
 
