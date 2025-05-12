@@ -15,11 +15,12 @@ class MainService {
       for (const point of simplex) {
         let value: number;
         try {
+          if (point.includes(Infinity) || point.includes(-Infinity))
+            throw new Error('Infinite point');
           value = tree.evaluate(point);
           valuedSimplex.push([...point, value]);
         } catch {
           pointBreak = true;
-          console.log('BREAK');
           break;
         }
       }
