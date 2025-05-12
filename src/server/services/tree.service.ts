@@ -1,4 +1,4 @@
-import { ExpressionTree, ExpressionTreeObject } from '../../addon/binding';
+import { ExpressionTree } from '../../addon/binding';
 import { GetGraphRequestDto } from '../../common/types/dto/tree/get-graph.dto';
 import { GRAPH_BREAK_DIVERGENCE } from '../constants';
 
@@ -19,7 +19,7 @@ class TreeService {
     return { ...actions[dimension](tree, from, to, +interval) };
   }
   private getGraph2D(
-    tree: ExpressionTreeObject,
+    tree: ExpressionTree,
     from: number,
     to: number,
     interval: number,
@@ -52,7 +52,7 @@ class TreeService {
   }
 
   private getPoints3D(
-    tree: ExpressionTreeObject,
+    tree: ExpressionTree,
     from: number,
     to: number,
     interval: number,

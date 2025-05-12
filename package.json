@@ -15,7 +15,9 @@
     "launch": "NELDERMEAD_ENV=prod electron ./dist/index.js",
     "compile": "NELDERMEAD_ENV=app electron-builder",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "lint": "eslint src --fix",
+    "lint:check": "eslint src"
   },
   "author": {
     "name": "Sergho",
