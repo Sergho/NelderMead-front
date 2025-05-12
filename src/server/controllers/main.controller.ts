@@ -8,7 +8,7 @@ import {
   GetSolutionRequestDto,
   GetSolutionResponseDto,
 } from '../../common/types/dto/get-solution.dto';
-import { mainService } from '../services/tree.service';
+import { mainService } from '../services/main.service';
 import { DtoRequest } from '../types/dto/dto-request';
 import { DtoResponse } from '../types/dto/dto-response';
 

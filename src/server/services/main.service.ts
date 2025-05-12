@@ -19,6 +19,7 @@ class MainService {
           valuedSimplex.push([...point, value]);
         } catch {
           pointBreak = true;
+          console.log('BREAK');
           break;
         }
       }

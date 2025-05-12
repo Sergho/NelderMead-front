@@ -28,7 +28,7 @@ export const Function: FC<FunctionProps> = (props: FunctionProps) => {
           .map((simplex) => {
             return simplex
               .map((point) => {
-                return `[${point.join(', ')}]`;
+                return `[${point.map((coord) => coord.toFixed(2)).join(', ')}]`;
               })
               .join(' - ');
           })
