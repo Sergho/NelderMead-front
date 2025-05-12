@@ -5,6 +5,7 @@ const baseUrl = `${HOST}:${BACKEND_PORT}`;
 export const API = {
   create_tree: `${baseUrl}/create-tree`,
   get_graph: `${baseUrl}/get-graph`,
+  get_solution: `${baseUrl}/get-solution`,
 };
 
 export const PLOT_OPTIONS_2D: { data: Partial<PlotData>; layout: Partial<Layout> } = {

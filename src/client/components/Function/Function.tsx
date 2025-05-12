@@ -5,10 +5,10 @@ import { Area } from './ui/Area/Area';
 import { Button } from '../Button/Button';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setLogs } from '../../features/logs/logs.slice';
-import { createTree } from '../../axios/create-tree';
 import { getGraph } from '../../axios/get-graph';
 import { setGraphPoints } from '../../features/graph/graph-points.slice';
 import { setAsideOpened } from '../../features/aside/aside.slice';
+import { getSolution } from '../../axios/get-solution';
 
 interface FunctionProps {
   className?: string;
@@ -21,8 +21,20 @@ export const Function: FC<FunctionProps> = (props: FunctionProps) => {
   const expression = useAppSelector((state) => state.expressionInput.expression);
 
   async function handleClick() {
-    const tree = await createTree(expression);
-    dispatch(setLogs(JSON.stringify(tree, null, 2)));
+    const solution = await getSolution(expression);
+    dispatch(
+      setLogs(
+        solution.simplexes
+          .map((simplex) => {
+            return simplex
+              .map((point) => {
+                return `[${point.join(', ')}]`;
+              })
+              .join(' - ');
+          })
+          .join('\n'),
+      ),
+    );
 
     const graph = await getGraph(expression);
     dispatch(setGraphPoints({ ...graph }));
