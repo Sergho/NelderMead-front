@@ -1,8 +1,8 @@
 import { ExpressionTree } from '../../addon/binding';
-import { GetGraphRequestDto } from '../../common/types/dto/tree/get-graph.dto';
+import { GetGraphRequestDto } from '../../common/types/dto/get-graph.dto';
 import { GRAPH_BREAK_DIVERGENCE } from '../constants';
 
-class TreeService {
+class MainService {
   public getGraph(dto: GetGraphRequestDto): any {
     const { expression, from, to, interval } = dto;
 
@@ -98,4 +98,4 @@ class TreeService {
   }
 }
 
-export const treeService = new TreeService();
+export const mainService = new MainService();

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API } from '../constants';
-import { GetGraphResponseDto } from '../../common/types/dto/tree/get-graph.dto';
+import { GetGraphResponseDto } from '../../common/types/dto/get-graph.dto';
 
 export const getGraph = async (expression: string): Promise<GetGraphResponseDto> => {
   try {
