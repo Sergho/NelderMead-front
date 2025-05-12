@@ -1,9 +1,39 @@
-import { ExpressionTree } from '../../addon/binding';
+import { ExpressionTree, NelderMeadMethod } from '../../addon/binding';
 import { GetGraphRequestDto } from '../../common/types/dto/get-graph.dto';
 import { GRAPH_BREAK_DIVERGENCE } from '../constants';
 
 class MainService {
-  public getGraph(dto: GetGraphRequestDto): any {
+  public getSimplexes(expression: string): number[][][] {
+    const tree = ExpressionTree.createTree(expression);
+    const method = new NelderMeadMethod(tree);
+    const simplexes = method.minimumSearch();
+
+    const valuedSimplexes: number[][][] = [];
+    for (const simplex of simplexes) {
+      const valuedSimplex: number[][] = [];
+      let pointBreak = false;
+      for (const point of simplex) {
+        let value: number;
+        try {
+          value = tree.evaluate(point);
+          valuedSimplex.push([...point, value]);
+        } catch {
+          pointBreak = true;
+          break;
+        }
+      }
+      if (pointBreak) break;
+      valuedSimplexes.push(valuedSimplex);
+    }
+
+    return valuedSimplexes;
+  }
+
+  public getGraph(dto: GetGraphRequestDto): {
+    x: number[];
+    y: number[];
+    z?: number[];
+  } {
     const { expression, from, to, interval } = dto;
 
     const tree = ExpressionTree.createTree(expression);

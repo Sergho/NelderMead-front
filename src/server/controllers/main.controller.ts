@@ -1,4 +1,4 @@
-import { ExpressionTree, NelderMeadMethod } from '../../addon/binding';
+import { ExpressionTree } from '../../addon/binding';
 import {
   CreateTreeRequestDto,
   CreateTreeResponseDto,
@@ -40,9 +40,7 @@ class MainController {
   ) {
     const { expression } = req.query;
     try {
-      const tree = ExpressionTree.createTree(expression);
-      const method = new NelderMeadMethod(tree);
-      const simplexes = method.minimumSearch();
+      const simplexes = mainService.getSimplexes(expression);
       res.status(200).json({ simplexes });
     } catch (error) {
       res.status(400).json({ message: error.message });
