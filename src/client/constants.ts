@@ -26,6 +26,10 @@ export const PLOT_OPTIONS_2D: { data: Partial<PlotData>; layout: Partial<Layout>
 export const PLOT_OPTIONS_3D: { data: Partial<PlotData>; layout: Partial<Layout> } = {
   data: {
     type: 'surface',
+    colorbar: {
+      xanchor: 'left',
+      x: -0.3,
+    },
   },
   layout: {
     dragmode: 'turntable',
