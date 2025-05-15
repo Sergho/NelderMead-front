@@ -61,6 +61,8 @@
     "ffi-rs": "^1.2.8",
     "node-addon-api": "^8.3.1",
     "plotly.js": "^3.0.1",
+    "rc-slider": "^11.1.8",
+    "rc-tooltip": "^6.4.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-plotly.js": "^2.6.0",
