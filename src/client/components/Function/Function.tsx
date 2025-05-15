@@ -27,9 +27,15 @@ export const Function: FC<FunctionProps> = (props: FunctionProps) => {
       setLogs(
         solution.simplexes
           .map((simplex) => {
-            return simplex
+            const dimension = simplex?.z ? 2 : 1;
+            const points: number[][] = [];
+            for (let i = 0; i < simplex.x.length; i++) {
+              if (dimension === 1) points.push([simplex.x[i], simplex.y[i]]);
+              else points.push([simplex.x[i], simplex.y[i], simplex.z[i]]);
+            }
+            return points
               .map((point) => {
-                return `[${point.map((coord) => coord.toFixed(2)).join(', ')}]`;
+                return point.join(', ');
               })
               .join(' - ');
           })

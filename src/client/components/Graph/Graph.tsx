@@ -30,20 +30,20 @@ export const Graph: FC<GraphProps> = (props: GraphProps) => {
 
   function getSimplexData(): Partial<PlotData> {
     if (!simplexes?.length) return {};
-    const dimension = simplexes[activeIndex]?.length > 2 ? 2 : 1;
+    const dimension = simplexes[activeIndex]?.z ? 2 : 1;
 
     if (dimension === 1)
       return {
         ...PLOT_OPTIONS_2D.simplexData,
-        x: simplexes[activeIndex].map((point) => point[0]),
-        y: simplexes[activeIndex].map((point) => point[1]),
+        x: simplexes[activeIndex].x,
+        y: simplexes[activeIndex].y,
       };
     else
       return {
         ...PLOT_OPTIONS_3D.simplexData,
-        x: simplexes[activeIndex].map((point) => point[0]),
-        y: simplexes[activeIndex].map((point) => point[1]),
-        z: simplexes[activeIndex].map((point) => point[2]),
+        x: simplexes[activeIndex].x,
+        y: simplexes[activeIndex].y,
+        z: simplexes[activeIndex].z,
       };
   }
 

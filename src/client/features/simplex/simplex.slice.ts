@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface SimplexState {
-  simplexes: number[][][];
+  simplexes: { x: number[]; y: number[]; z?: number[] }[];
   activeIndex: number;
 }
 
@@ -14,7 +14,7 @@ export const SimplexSlice = createSlice({
   name: 'simplex',
   initialState,
   reducers: {
-    setSimplexes: (state, action: PayloadAction<number[][][]>) => {
+    setSimplexes: (state, action: PayloadAction<{ x: number[]; y: number[]; z?: number[] }[]>) => {
       state.simplexes = action.payload;
       state.activeIndex = state.simplexes ? 0 : null;
     },

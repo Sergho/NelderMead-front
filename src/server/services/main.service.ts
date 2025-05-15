@@ -3,14 +3,16 @@ import { GetGraphRequestDto } from '../../common/types/dto/get-graph.dto';
 import { GRAPH_BREAK_DIVERGENCE } from '../constants';
 
 class MainService {
-  public getSimplexes(expression: string): number[][][] {
+  public getSimplexes(expression: string): { x: number[]; y: number[]; z?: number[] }[] {
     const tree = ExpressionTree.createTree(expression);
     const method = new NelderMeadMethod(tree);
     const simplexes = method.minimumSearch();
 
-    const valuedSimplexes: number[][][] = [];
+    const valuedSimplexes: { x: number[]; y: number[]; z?: number[] }[] = [];
     for (const simplex of simplexes) {
-      const valuedSimplex: number[][] = [];
+      const dimension = simplex[0]?.length;
+      const valuedSimplex: { x: number[]; y: number[]; z?: number[] } = { x: [], y: [] };
+      if (dimension === 2) valuedSimplex.z = [];
       let pointBreak = false;
       for (const point of simplex) {
         let value: number;
@@ -18,13 +20,22 @@ class MainService {
           if (point.includes(Infinity) || point.includes(-Infinity))
             throw new Error('Infinite point');
           value = tree.evaluate(point);
-          valuedSimplex.push([...point, value]);
-        } catch {
+
+          valuedSimplex.x.push(point[0]);
+          if (dimension === 1) {
+            valuedSimplex.y.push(value);
+          } else {
+            valuedSimplex.y.push(point[1]);
+            valuedSimplex.z.push(value);
+          }
+        } catch (e: any) {
+          console.log(e);
           pointBreak = true;
           break;
         }
       }
       if (pointBreak) break;
+      console.log(valuedSimplex);
       valuedSimplexes.push(valuedSimplex);
     }
 
