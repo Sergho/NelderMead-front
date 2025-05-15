@@ -5,6 +5,9 @@
   flex-wrap: wrap;
   justify-content: center;
   height: 60vh;
+  &.disabled {
+    visibility: hidden;
+  }
 }
 
 .text {

@@ -35,7 +35,13 @@ export const Graph: FC<GraphProps> = (props: GraphProps) => {
 
   return (
     <div className={clsx(className, classes.wrapper)}>
-      <Plot className={clsx(classes.plot)} data={[getData()]} layout={getLayout()} />
+      <Plot
+        className={clsx(classes.plot, {
+          [classes.disabled]: !x?.length,
+        })}
+        data={[getData()]}
+        layout={getLayout()}
+      />
     </div>
   );
 };

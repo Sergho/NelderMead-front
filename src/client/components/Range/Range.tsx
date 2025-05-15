@@ -23,7 +23,11 @@ export const Range: FC<RangeProps> = (props: RangeProps) => {
   }
 
   return (
-    <div className={clsx(className, classes.wrapper)}>
+    <div
+      className={clsx(className, classes.wrapper, {
+        [classes.disabled]: !simplexes?.length,
+      })}
+    >
       <span className={clsx(classes.text)}>{activeIndex + 1}</span>
       <Slider
         className={clsx(classes.slider)}
