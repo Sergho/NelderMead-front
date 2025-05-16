@@ -76,7 +76,7 @@ class MainService {
     };
 
     let prevValue: number = null;
-    for (let i = min; i <= max; i += interval) {
+    for (let i = min; i < max + interval; i += interval) {
       result.x.push(i);
       let value: number = null;
       try {

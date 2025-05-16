@@ -2,10 +2,14 @@ import axios from 'axios';
 import { API } from '../constants';
 import { GetGraphResponseDto } from '../../common/types/dto/get-graph.dto';
 
-export const getGraph = async (expression: string): Promise<GetGraphResponseDto> => {
+export const getGraph = async (
+  expression: string,
+  from: number,
+  to: number,
+): Promise<GetGraphResponseDto> => {
   try {
     const result = await axios.get<GetGraphResponseDto>(API.get_graph, {
-      params: { expression, from: -10, to: 10, interval: 0.1 },
+      params: { expression, from, to, interval: 0.05 },
     });
     return result.data;
   } catch (err) {

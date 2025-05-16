@@ -10,6 +10,7 @@ import { setGraphPoints } from '../../features/graph/graph-points.slice';
 import { setAsideOpened } from '../../features/aside/aside.slice';
 import { getSolution } from '../../axios/get-solution';
 import { setSimplexes } from '../../features/simplex/simplex.slice';
+import { getLimits } from '../../utils/get-limits';
 
 interface FunctionProps {
   className?: string;
@@ -44,7 +45,8 @@ export const Function: FC<FunctionProps> = (props: FunctionProps) => {
     );
     dispatch(setSimplexes(solution.simplexes));
 
-    const graph = await getGraph(expression);
+    const limits = getLimits(solution.simplexes);
+    const graph = await getGraph(expression, limits.from - 1, limits.to + 1);
     dispatch(setGraphPoints({ ...graph }));
 
     dispatch(setAsideOpened(false));

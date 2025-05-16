@@ -42,6 +42,7 @@ export const PLOT_OPTIONS_3D: {
       xanchor: 'left',
       x: -0.3,
     },
+    opacity: 0.6,
   },
   simplexData: {
     type: 'mesh3d',
