@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import classes from './Range.module.scss';
 import { FC } from 'react';
-import { setActiveIndex } from '../../features/simplex/simplex.slice';
+import { setActiveIndex } from '../../features/solution/solution.slice';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
