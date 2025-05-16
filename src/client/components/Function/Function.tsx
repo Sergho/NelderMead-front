@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { Area } from './ui/Area/Area';
 import { Button } from '../Button/Button';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { fetchSolution } from '../../features/solution/get-solution.thunk';
+import { fetchSolution } from '../../features/solution/fetch-solution.thunk';
 
 interface FunctionProps {
   className?: string;

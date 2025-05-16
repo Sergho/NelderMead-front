@@ -13,8 +13,8 @@ interface RangeProps {
 export const Range: FC<RangeProps> = (props: RangeProps) => {
   const { className } = props;
 
-  const simplexes = useAppSelector((state) => state.simplex.simplexes);
-  const activeIndex = useAppSelector((state) => state.simplex.activeIndex);
+  const simplexes = useAppSelector((state) => state.solution.simplexes);
+  const activeIndex = useAppSelector((state) => state.solution.activeIndex);
 
   const dispatch = useAppDispatch();
 

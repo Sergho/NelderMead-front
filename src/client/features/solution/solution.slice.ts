@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchSolution } from './get-solution.thunk';
+import { fetchSolution } from './fetch-solution.thunk';
 import { Status } from '../../types/enums/status.enum';
 import { Dimension } from '../../types/enums/dimension.enum';
+import { Simplex } from '../../../common/types/simplex';
 
 interface SimplexState {
-  simplexes: { x: number[]; y: number[]; z?: number[] }[];
+  simplexes: Simplex[];
   dimension: Dimension;
   activeIndex: number;
   status: Status;

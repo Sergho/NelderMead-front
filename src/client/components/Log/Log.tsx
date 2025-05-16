@@ -2,9 +2,10 @@ import clsx from 'clsx';
 import classes from './Log.module.scss';
 import { FC } from 'react';
 import { Button } from '../Button/Button';
-import { Darkness, Size } from '../../types/enums';
 import { Text } from './ui/Text/Text';
 import { useAppSelector } from '../../app/hooks';
+import { Darkness } from '../../types/enums/darkness.enum';
+import { Size } from '../../types/enums/size.enum';
 
 interface LogProps {
   className?: string;

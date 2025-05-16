@@ -2,6 +2,8 @@ import clsx from 'clsx';
 import classes from './Text.module.scss';
 import { FC, useEffect, useRef, useState } from 'react';
 import { Row } from '../Row/Row';
+import { useAppSelector } from '../../../../app/hooks';
+import { Status } from '../../../../types/enums/status.enum';
 
 interface TextProps {
   className?: string;
@@ -14,6 +16,8 @@ export const Text: FC<TextProps> = (props: TextProps) => {
   const lastRef = useRef<HTMLSpanElement>(null);
   const [indexWidth, setIndexWidth] = useState(0);
 
+  const status = useAppSelector((state) => state.solution.status);
+
   useEffect(() => {
     const width = lastRef.current?.offsetWidth || 0;
     setIndexWidth(width);
@@ -21,18 +25,20 @@ export const Text: FC<TextProps> = (props: TextProps) => {
 
   return (
     <div className={clsx(className, classes.wrapper)}>
-      {rows.map((row: string, index: number) => {
-        return (
-          <Row
-            key={index + 1}
-            index={index + 1}
-            indexWidth={index !== rows.length - 1 ? indexWidth : null}
-            ref={index === rows.length - 1 ? lastRef : null}
-          >
-            {row}
-          </Row>
-        );
-      })}
+      {status === Status.Loading && <p>Loading...</p>}
+      {status === Status.Success &&
+        rows.map((row: string, index: number) => {
+          return (
+            <Row
+              key={index + 1}
+              index={index + 1}
+              indexWidth={index !== rows.length - 1 ? indexWidth : null}
+              ref={index === rows.length - 1 ? lastRef : null}
+            >
+              {row}
+            </Row>
+          );
+        })}
     </div>
   );
 };

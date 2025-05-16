@@ -1,45 +1,43 @@
 import { ExpressionTree, NelderMeadMethod } from '../../addon/binding';
 import { GetGraphRequestDto } from '../../common/types/dto/get-graph.dto';
+import { Simplex } from '../../common/types/simplex';
 import { GRAPH_BREAK_DIVERGENCE } from '../constants';
 
 class MainService {
-  public getSimplexes(expression: string): { x: number[]; y: number[]; z?: number[] }[] {
+  public getSimplexes(expression: string): Simplex[] {
     const tree = ExpressionTree.createTree(expression);
     const method = new NelderMeadMethod(tree);
-    const simplexes = method.minimumSearch();
 
-    const valuedSimplexes: { x: number[]; y: number[]; z?: number[] }[] = [];
-    for (const simplex of simplexes) {
-      const dimension = simplex[0]?.length;
-      const valuedSimplex: { x: number[]; y: number[]; z?: number[] } = { x: [], y: [] };
-      if (dimension === 2) valuedSimplex.z = [];
+    const simplexes: Simplex[] = [];
+    for (const simplex of method.minimumSearch()) {
+      const coords: number[][] = [];
+      const values: number[] = [];
+
       let pointBreak = false;
       for (const point of simplex) {
-        let value: number;
-        try {
-          if (point.includes(Infinity) || point.includes(-Infinity))
-            throw new Error('Infinite point');
-          value = tree.evaluate(point);
-
-          valuedSimplex.x.push(point[0]);
-          if (dimension === 1) {
-            valuedSimplex.y.push(value);
-          } else {
-            valuedSimplex.y.push(point[1]);
-            valuedSimplex.z.push(value);
+        for (const index in point) {
+          if (!coords[index]) {
+            coords[index] = [];
           }
-        } catch (e: any) {
-          console.log(e);
+          coords[index].push(point[index]);
+        }
+
+        try {
+          if (point.includes(Infinity) || point.includes(-Infinity)) {
+            throw new Error('Infinite point');
+          }
+          values.push(tree.evaluate(point));
+        } catch {
           pointBreak = true;
           break;
         }
       }
-      if (pointBreak) break;
-      console.log(valuedSimplex);
-      valuedSimplexes.push(valuedSimplex);
+
+      if (pointBreak) continue;
+      simplexes.push({ coords, values });
     }
 
-    return valuedSimplexes;
+    return simplexes;
   }
 
   public getGraph(dto: GetGraphRequestDto): {

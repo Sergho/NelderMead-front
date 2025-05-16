@@ -13,8 +13,8 @@ interface GraphProps {
 export const Graph: FC<GraphProps> = (props: GraphProps) => {
   const { className } = props;
 
-  const simplexes = useAppSelector((state) => state.simplex.simplexes);
-  const activeIndex = useAppSelector((state) => state.simplex.activeIndex);
+  const simplexes = useAppSelector((state) => state.solution.simplexes);
+  const activeIndex = useAppSelector((state) => state.solution.activeIndex);
 
   const x = useAppSelector((state) => state.graph.x);
   const y = useAppSelector((state) => state.graph.y);
