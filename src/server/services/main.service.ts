@@ -2,7 +2,7 @@ import { ExpressionTree, NelderMeadMethod } from '../../addon/binding';
 import { GetGraphRequestDto } from '../../common/types/dto/get-graph.dto';
 import { GraphPoints } from '../../common/types/graph-points';
 import { Simplex } from '../../common/types/simplex';
-import { GRAPH_BREAK_DIVERGENCE } from '../constants';
+import { GRAPH_BREAK_DIVERGENCE, SOLUTION_LIMIT } from '../constants';
 
 class MainService {
   public getSimplexes(expression: string): Simplex[] {
@@ -17,6 +17,10 @@ class MainService {
       let pointBreak = false;
       for (const point of simplex) {
         for (const index in point) {
+          if (Math.abs(point[index]) > SOLUTION_LIMIT) {
+            pointBreak = true;
+            break;
+          }
           if (!coords[index]) {
             coords[index] = [];
           }

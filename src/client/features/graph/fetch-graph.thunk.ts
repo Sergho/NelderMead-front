@@ -19,7 +19,7 @@ export const fetchGraph = createAsyncThunk<
 >('graph/get', async ({ expression, limits }, { rejectWithValue }) => {
   try {
     const result = await axios.get<GetGraphResponseDto>(API.get_graph, {
-      params: { expression, from: limits.from - 0.5, to: limits.to + 0.5, interval: 0.05 },
+      params: { expression, from: limits.from - 0.5, to: limits.to + 0.5, interval: 0.1 },
     });
     return result.data;
   } catch (err) {
