@@ -31,8 +31,10 @@ export const LogsSlice = createSlice({
           return points.join(' - ');
         });
 
-        state.isError = false;
         state.logs = simplexes.join('\n');
+      })
+      .addCase(fetchSolution.pending, (state) => {
+        state.isError = false;
       })
       .addCase(fetchSolution.rejected, (state, action) => {
         state.logs = JSON.stringify(action.payload, null, 2);
