@@ -4,6 +4,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { Row } from '../Row/Row';
 import { useAppSelector } from '../../../../app/hooks';
 import { Status } from '../../../../types/enums/status.enum';
+import { Spinner } from '../../../Spinner/Spinner';
 
 interface TextProps {
   className?: string;
@@ -30,7 +31,7 @@ export const Text: FC<TextProps> = (props: TextProps) => {
         [classes.error]: isError,
       })}
     >
-      {status === Status.Loading && <p>Loading...</p>}
+      {status === Status.Loading && <Spinner />}
       {[Status.Success, Status.Failed].includes(status) &&
         rows.map((row: string, index: number) => {
           return (

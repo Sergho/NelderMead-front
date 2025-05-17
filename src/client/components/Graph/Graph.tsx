@@ -7,6 +7,7 @@ import { Layout, PlotData } from 'plotly.js';
 import { PLOT_OPTIONS_2D, PLOT_OPTIONS_3D } from '../../constants';
 import { Dimension } from '../../types/enums/dimension.enum';
 import { Status } from '../../types/enums/status.enum';
+import { Spinner } from '../Spinner/Spinner';
 
 interface GraphProps {
   className?: string;
@@ -70,7 +71,7 @@ export const Graph: FC<GraphProps> = (props: GraphProps) => {
         [classes.error]: status === Status.Failed,
       })}
     >
-      {status === Status.Loading && <p>Loading...</p>}
+      {status === Status.Loading && <Spinner />}
       {status === Status.Failed && <p className={clsx(classes.alert)}>Unable to build graph</p>}
       {status === Status.Success && (
         <Plot

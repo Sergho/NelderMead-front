@@ -4,6 +4,7 @@
   background-color: var(--color-blue-3);
   box-sizing: border-box;
   padding-left: 88px;
+  position: relative;
 
   &.error {
     background-color: var(--color-error-2);

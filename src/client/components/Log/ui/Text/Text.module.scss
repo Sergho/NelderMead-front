@@ -5,6 +5,7 @@
   overflow: auto;
   padding: 10px;
   box-sizing: border-box;
+  position: relative;
 
   &.error {
     background-color: var(--color-error-2);

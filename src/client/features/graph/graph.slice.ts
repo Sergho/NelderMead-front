@@ -3,6 +3,7 @@ import { GraphPoints } from '../../../common/types/graph-points';
 import { Dimension } from '../../types/enums/dimension.enum';
 import { Status } from '../../types/enums/status.enum';
 import { fetchGraph } from './fetch-graph.thunk';
+import { fetchSolution } from '../solution/fetch-solution.thunk';
 
 interface GraphState {
   points: GraphPoints;
@@ -31,6 +32,10 @@ export const GraphSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGraph.pending, (state) => {
+      state.status = Status.Loading;
+      state.error = null;
+    });
+    builder.addCase(fetchSolution.pending, (state) => {
       state.status = Status.Loading;
       state.error = null;
     });
