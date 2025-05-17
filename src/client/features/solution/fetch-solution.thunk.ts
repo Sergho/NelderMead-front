@@ -12,13 +12,14 @@ export const fetchSolution = createAsyncThunk<
   }
 >('solution/get', async (expression: string, { rejectWithValue }) => {
   try {
+    console.log('Solution query start');
     const result = await axios.get<GetSolutionResponseDto>(API.get_solution, {
       params: { expression },
     });
     return result.data;
   } catch (err) {
     if (axios.isAxiosError<ErrorDto>(err)) {
-      rejectWithValue(err.response.data);
+      return rejectWithValue(err.response.data);
     } else {
       throw err;
     }

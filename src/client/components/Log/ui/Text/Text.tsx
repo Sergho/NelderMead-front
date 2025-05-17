@@ -17,6 +17,7 @@ export const Text: FC<TextProps> = (props: TextProps) => {
   const [indexWidth, setIndexWidth] = useState(0);
 
   const status = useAppSelector((state) => state.solution.status);
+  const isError = useAppSelector((state) => state.logs.isError);
 
   useEffect(() => {
     const width = lastRef.current?.offsetWidth || 0;
@@ -24,9 +25,13 @@ export const Text: FC<TextProps> = (props: TextProps) => {
   }, [content]);
 
   return (
-    <div className={clsx(className, classes.wrapper)}>
+    <div
+      className={clsx(className, classes.wrapper, {
+        [classes.error]: isError,
+      })}
+    >
       {status === Status.Loading && <p>Loading...</p>}
-      {status === Status.Success &&
+      {[Status.Success, Status.Failed].includes(status) &&
         rows.map((row: string, index: number) => {
           return (
             <Row

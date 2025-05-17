@@ -19,9 +19,13 @@ export const Function: FC<FunctionProps> = (props: FunctionProps) => {
   const expression = useAppSelector((state) => state.expressionInput.expression);
 
   async function handleClick() {
-    const solution = await dispatch(fetchSolution(expression)).unwrap();
-    const limits = getLimits(solution.simplexes);
-    dispatch(fetchGraph({ expression, limits }));
+    dispatch(fetchSolution(expression))
+      .unwrap()
+      .then((solution) => {
+        const limits = getLimits(solution.simplexes);
+        dispatch(fetchGraph({ expression, limits }));
+      })
+      .catch(() => {});
   }
 
   return (

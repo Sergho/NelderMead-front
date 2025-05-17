@@ -24,7 +24,7 @@ export const fetchGraph = createAsyncThunk<
     return result.data;
   } catch (err) {
     if (axios.isAxiosError<ErrorDto>(err)) {
-      rejectWithValue(err.response.data);
+      return rejectWithValue(err.response.data);
     } else {
       throw err;
     }

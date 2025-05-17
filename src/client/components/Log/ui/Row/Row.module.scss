@@ -13,4 +13,8 @@
   width: auto;
   white-space: pre;
   color: var(--color-purple-2);
+
+  &.error {
+    color: var(--color-error-1);
+  }
 }
