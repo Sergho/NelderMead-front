@@ -5,6 +5,8 @@ import { Area } from './ui/Area/Area';
 import { Button } from '../Button/Button';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { fetchSolution } from '../../features/solution/fetch-solution.thunk';
+import { fetchGraph } from '../../features/graph/fetch-graph.thunk';
+import { getLimits } from '../../utils/get-limits';
 
 interface FunctionProps {
   className?: string;
@@ -17,7 +19,9 @@ export const Function: FC<FunctionProps> = (props: FunctionProps) => {
   const expression = useAppSelector((state) => state.expressionInput.expression);
 
   async function handleClick() {
-    dispatch(fetchSolution(expression));
+    const solution = await dispatch(fetchSolution(expression)).unwrap();
+    const limits = getLimits(solution.simplexes);
+    dispatch(fetchGraph({ expression, limits }));
   }
 
   return (

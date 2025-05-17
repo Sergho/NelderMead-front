@@ -41,6 +41,17 @@ export const SimplexSlice = createSlice({
       state.status = Status.Success;
       state.simplexes = action.payload.simplexes;
       state.activeIndex = 0;
+      switch (action.payload.simplexes[0].coords.length) {
+        case 1:
+          state.dimension = Dimension.TwoD;
+          break;
+        case 2:
+          state.dimension = Dimension.ThreeD;
+          break;
+        default:
+          state.dimension = Dimension.Unsupported;
+          break;
+      }
     });
   },
 });

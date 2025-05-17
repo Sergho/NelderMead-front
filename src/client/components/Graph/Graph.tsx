@@ -5,6 +5,8 @@ import Plot from 'react-plotly.js';
 import { useAppSelector } from '../../app/hooks';
 import { Layout, PlotData } from 'plotly.js';
 import { PLOT_OPTIONS_2D, PLOT_OPTIONS_3D } from '../../constants';
+import { Dimension } from '../../types/enums/dimension.enum';
+import { Status } from '../../types/enums/status.enum';
 
 interface GraphProps {
   className?: string;
@@ -16,54 +18,68 @@ export const Graph: FC<GraphProps> = (props: GraphProps) => {
   const simplexes = useAppSelector((state) => state.solution.simplexes);
   const activeIndex = useAppSelector((state) => state.solution.activeIndex);
 
-  const x = useAppSelector((state) => state.graph.x);
-  const y = useAppSelector((state) => state.graph.y);
-  const z = useAppSelector((state) => state.graph.z);
+  const status = useAppSelector((state) => state.graph.status);
+  const points = useAppSelector((state) => state.graph.points);
+  const dimension = useAppSelector((state) => state.graph.dimension);
 
   function getData(): Partial<PlotData> {
-    if (!x?.length) return {};
-
-    const dimension = z?.length ? 2 : 1;
-    if (dimension === 1) return { ...PLOT_OPTIONS_2D.data, x, y };
-    else return { ...PLOT_OPTIONS_3D.data, x, y, z };
+    switch (dimension) {
+      case Dimension.TwoD:
+        return { ...PLOT_OPTIONS_2D.data, x: points.x, y: points.y };
+      case Dimension.ThreeD:
+        return { ...PLOT_OPTIONS_3D.data, x: points.x, y: points.y, z: points.z };
+      default:
+        return null;
+    }
   }
 
   function getSimplexData(): Partial<PlotData> {
-    if (!simplexes?.length) return {};
-    const dimension = simplexes[activeIndex]?.z ? 2 : 1;
-
-    if (dimension === 1)
-      return {
-        ...PLOT_OPTIONS_2D.simplexData,
-        x: simplexes[activeIndex].x,
-        y: simplexes[activeIndex].y,
-      };
-    else
-      return {
-        ...PLOT_OPTIONS_3D.simplexData,
-        x: simplexes[activeIndex].x,
-        y: simplexes[activeIndex].y,
-        z: simplexes[activeIndex].z,
-      };
+    switch (dimension) {
+      case Dimension.TwoD:
+        return {
+          ...PLOT_OPTIONS_2D.simplexData,
+          x: simplexes[activeIndex].coords[0],
+          y: simplexes[activeIndex].values,
+        };
+      case Dimension.ThreeD:
+        return {
+          ...PLOT_OPTIONS_3D.simplexData,
+          x: simplexes[activeIndex].coords[0],
+          y: simplexes[activeIndex].coords[1],
+          z: simplexes[activeIndex].values,
+        };
+      default:
+        return null;
+    }
   }
 
   function getLayout(): Partial<Layout> {
-    if (!x?.length) return {};
-
-    const dimension = z?.length ? 2 : 1;
-    if (dimension === 1) return PLOT_OPTIONS_2D.layout;
-    else return PLOT_OPTIONS_3D.layout;
+    switch (dimension) {
+      case Dimension.TwoD:
+        return PLOT_OPTIONS_2D.layout;
+      case Dimension.ThreeD:
+        return PLOT_OPTIONS_3D.layout;
+      default:
+        return null;
+    }
   }
 
   return (
     <div className={clsx(className, classes.wrapper)}>
-      <Plot
-        className={clsx(classes.plot, {
-          [classes.disabled]: !x?.length,
-        })}
-        data={[getData(), getSimplexData()]}
-        layout={getLayout()}
-      />
+      {status === Status.Loading && <p>Loading...</p>}
+      {status === Status.Success && (
+        <>
+          {dimension === Dimension.Unsupported ? (
+            <p>Unable to build graph</p>
+          ) : (
+            <Plot
+              className={clsx(classes.plot)}
+              data={[getData(), getSimplexData()]}
+              layout={getLayout()}
+            />
+          )}
+        </>
+      )}
     </div>
   );
 };

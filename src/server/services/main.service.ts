@@ -1,5 +1,6 @@
 import { ExpressionTree, NelderMeadMethod } from '../../addon/binding';
 import { GetGraphRequestDto } from '../../common/types/dto/get-graph.dto';
+import { GraphPoints } from '../../common/types/graph-points';
 import { Simplex } from '../../common/types/simplex';
 import { GRAPH_BREAK_DIVERGENCE } from '../constants';
 
@@ -40,11 +41,7 @@ class MainService {
     return simplexes;
   }
 
-  public getGraph(dto: GetGraphRequestDto): {
-    x: number[];
-    y: number[];
-    z?: number[];
-  } {
+  public getGraph(dto: GetGraphRequestDto): GraphPoints {
     const { expression, from, to, interval } = dto;
 
     const tree = ExpressionTree.createTree(expression);
@@ -64,7 +61,7 @@ class MainService {
     from: number,
     to: number,
     interval: number,
-  ): { x: number[]; y: number[] } {
+  ): GraphPoints {
     const min = Math.min(from, to);
     const max = Math.max(from, to);
 
@@ -97,11 +94,7 @@ class MainService {
     from: number,
     to: number,
     interval: number,
-  ): {
-    x: number[];
-    y: number[];
-    z: number[];
-  } {
+  ): GraphPoints {
     const min = Math.min(from, to);
     const max = Math.max(from, to);
 
