@@ -44,7 +44,6 @@ export const GraphSlice = createSlice({
       state.error = action.payload.message;
     });
     builder.addCase(fetchGraph.fulfilled, (state, action) => {
-      console.log(action);
       state.status = Status.Success;
       state.points = action.payload.points;
       if (action.payload.points?.z?.length) {

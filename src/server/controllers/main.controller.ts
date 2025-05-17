@@ -39,9 +39,6 @@ class MainController {
     res: DtoResponse<GetSolutionResponseDto>,
   ) {
     const { expression } = req.query;
-    await new Promise((resolve, reject) => {
-      setTimeout(resolve, 3000);
-    });
     try {
       const simplexes = mainService.getSimplexes(expression);
       res.status(200).json({ simplexes });
