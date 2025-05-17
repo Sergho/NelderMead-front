@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { fetchSolution } from '../../features/solution/fetch-solution.thunk';
 import { fetchGraph } from '../../features/graph/fetch-graph.thunk';
 import { getLimits } from '../../utils/get-limits';
+import { setStatus } from '../../features/graph/graph.slice';
+import { Status } from '../../types/enums/status.enum';
 
 interface FunctionProps {
   className?: string;
@@ -25,7 +27,9 @@ export const Function: FC<FunctionProps> = (props: FunctionProps) => {
         const limits = getLimits(solution.simplexes);
         dispatch(fetchGraph({ expression, limits }));
       })
-      .catch(() => {});
+      .catch(() => {
+        dispatch(setStatus(Status.Failed));
+      });
   }
 
   return (

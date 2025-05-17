@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GraphPoints } from '../../../common/types/graph-points';
 import { Dimension } from '../../types/enums/dimension.enum';
 import { Status } from '../../types/enums/status.enum';
@@ -16,7 +16,7 @@ const initialState: GraphState = {
     x: [],
     y: [],
   },
-  dimension: Dimension.Unsupported,
+  dimension: Dimension.TwoD,
   status: Status.Idle,
   error: null,
 };
@@ -24,7 +24,11 @@ const initialState: GraphState = {
 export const GraphSlice = createSlice({
   name: 'graph',
   initialState,
-  reducers: {},
+  reducers: {
+    setStatus: (state, action: PayloadAction<Status>) => {
+      state.status = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchGraph.pending, (state) => {
       state.status = Status.Loading;
@@ -47,4 +51,5 @@ export const GraphSlice = createSlice({
   },
 });
 
+export const { setStatus } = GraphSlice.actions;
 export default GraphSlice.reducer;

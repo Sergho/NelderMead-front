@@ -65,20 +65,19 @@ export const Graph: FC<GraphProps> = (props: GraphProps) => {
   }
 
   return (
-    <div className={clsx(className, classes.wrapper)}>
+    <div
+      className={clsx(className, classes.wrapper, {
+        [classes.error]: status === Status.Failed,
+      })}
+    >
       {status === Status.Loading && <p>Loading...</p>}
+      {status === Status.Failed && <p className={clsx(classes.alert)}>Unable to build graph</p>}
       {status === Status.Success && (
-        <>
-          {dimension === Dimension.Unsupported ? (
-            <p>Unable to build graph</p>
-          ) : (
-            <Plot
-              className={clsx(classes.plot)}
-              data={[getData(), getSimplexData()]}
-              layout={getLayout()}
-            />
-          )}
-        </>
+        <Plot
+          className={clsx(classes.plot)}
+          data={[getData(), getSimplexData()]}
+          layout={getLayout()}
+        />
       )}
     </div>
   );
