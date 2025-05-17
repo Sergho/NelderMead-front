@@ -16,10 +16,29 @@ export const Log: FC<LogProps> = (props: LogProps) => {
 
   const logs = useAppSelector((state) => state.logs.logs);
 
+  function handleClick() {
+    const blob = new Blob([logs], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'nelder-mead.log';
+
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+  }
+
   return (
     <div className={clsx(className, classes.wrapper)}>
       <Text className={classes.text} content={logs} />
-      <Button className={classes.button} darkness={Darkness.Dark} size={Size.Big}>
+      <Button
+        onClick={handleClick}
+        className={classes.button}
+        darkness={Darkness.Dark}
+        size={Size.Big}
+      >
         Save
       </Button>
     </div>
