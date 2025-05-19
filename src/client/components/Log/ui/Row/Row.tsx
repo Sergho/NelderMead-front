@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import classes from './Row.module.scss';
 import { forwardRef, PropsWithChildren } from 'react';
+import { useAppSelector } from '../../../../app/hooks';
 
 interface RowProps extends PropsWithChildren {
   className?: string;
@@ -11,6 +12,8 @@ interface RowProps extends PropsWithChildren {
 export const Row = forwardRef<HTMLSpanElement, RowProps>((props, ref) => {
   const { className, index, children, indexWidth } = props;
 
+  const isError = useAppSelector((state) => state.logs.isError);
+
   return (
     <div className={clsx(className, classes.wrapper)}>
       <span
@@ -20,7 +23,13 @@ export const Row = forwardRef<HTMLSpanElement, RowProps>((props, ref) => {
       >
         {index}
       </span>
-      <p className={classes.content}>{children}</p>
+      <p
+        className={clsx(classes.content, {
+          [classes.error]: isError,
+        })}
+      >
+        {children}
+      </p>
     </div>
   );
 });

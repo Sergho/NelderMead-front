@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import classes from './Input.module.scss';
 import { ChangeEvent, FC, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { setExpressionInput } from '../../../../features/function/expression-input.slice';
+import { setExpressionInput } from '../../../../features/expression/expression-input.slice';
 
 interface InputProps {
   className?: string;

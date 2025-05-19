@@ -1,7 +1,8 @@
 import clsx from 'clsx';
 import classes from './Button.module.scss';
 import { FC, MouseEventHandler, PropsWithChildren } from 'react';
-import { Darkness, Size } from '../../types/enums';
+import { Darkness } from '../../types/enums/darkness.enum';
+import { Size } from '../../types/enums/size.enum';
 
 interface ButtonProps extends PropsWithChildren {
   className?: string;

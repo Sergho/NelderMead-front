@@ -1,4 +1,5 @@
-// TODO replace expression by tree json
+import { GraphPoints } from '../graph-points';
+
 export interface GetGraphRequestDto {
   expression: string;
   from: number;
@@ -6,7 +7,5 @@ export interface GetGraphRequestDto {
   interval: number;
 }
 export interface GetGraphResponseDto {
-  x: number[];
-  y: number[];
-  z?: number[];
+  points: GraphPoints;
 }
