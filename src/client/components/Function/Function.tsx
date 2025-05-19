@@ -1,22 +1,39 @@
 import clsx from 'clsx';
 import classes from './Function.module.scss';
-import { ChangeEventHandler, FC, MouseEventHandler } from 'react';
+import { FC } from 'react';
 import { Area } from './ui/Area/Area';
 import { Button } from '../Button/Button';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { setLogs } from '../../features/logs/logs.slice';
+import { createTree } from '../../axios/create-tree';
+import { getGraph } from '../../axios/get-graph';
+import { setGraphPoints } from '../../features/graph/graph-points.slice';
+import { setAsideOpened } from '../../features/aside/aside.slice';
 
 interface FunctionProps {
   className?: string;
-  expression?: string;
-  onInput?: ChangeEventHandler<HTMLInputElement>;
-  onSubmit?: MouseEventHandler<HTMLButtonElement>;
 }
 
 export const Function: FC<FunctionProps> = (props: FunctionProps) => {
-  const { className, expression, onInput, onSubmit } = props;
+  const { className } = props;
+
+  const dispatch = useAppDispatch();
+  const expression = useAppSelector((state) => state.expressionInput.expression);
+
+  async function handleClick() {
+    const tree = await createTree(expression);
+    dispatch(setLogs(JSON.stringify(tree, null, 2)));
+
+    const graph = await getGraph(expression);
+    dispatch(setGraphPoints({ ...graph }));
+
+    dispatch(setAsideOpened(false));
+  }
+
   return (
     <div className={clsx(className, classes.wrapper)}>
-      <Area expression={expression} onChange={onInput} className={classes.area} />
-      <Button className={classes.button} onClick={onSubmit} rounded>
+      <Area className={classes.area} />
+      <Button className={classes.button} onClick={handleClick} rounded>
         Launch
       </Button>
     </div>
