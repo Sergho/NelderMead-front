@@ -16,6 +16,10 @@ class MainService {
 
       let pointBreak = false;
       for (const point of simplex) {
+        if (point.length === 0) {
+          throw new Error('Constant function');
+        }
+
         for (const index in point) {
           if (Math.abs(point[index]) > SOLUTION_LIMIT) {
             pointBreak = true;
