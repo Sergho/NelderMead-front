@@ -3,17 +3,21 @@ import { GetSolutionResponseDto } from '../../../common/types/dto/get-solution.d
 import axios from 'axios';
 import { API } from '../../constants';
 import { ErrorDto } from '../../../common/types/dto/error.dto';
+import { Params } from '../../../common/types/params';
 
 export const fetchSolution = createAsyncThunk<
   GetSolutionResponseDto,
-  string,
+  {
+    expression: string;
+    params: Params;
+  },
   {
     rejectValue: ErrorDto;
   }
->('solution/get', async (expression: string, { rejectWithValue }) => {
+>('solution/get', async ({ expression, params }, { rejectWithValue }) => {
   try {
     const result = await axios.get<GetSolutionResponseDto>(API.get_solution, {
-      params: { expression },
+      params: { expression, params },
     });
     return result.data;
   } catch (err) {

@@ -1,16 +1,26 @@
 import { ExpressionTree, NelderMeadMethod } from '../../addon/binding';
+import { Params } from '../../common/types/params';
 import { GetGraphRequestDto } from '../../common/types/dto/get-graph.dto';
 import { GraphPoints } from '../../common/types/graph-points';
 import { Simplex } from '../../common/types/simplex';
-import { GRAPH_BREAK_DIVERGENCE, SOLUTION_LIMIT } from '../constants';
+import { GRAPH_BREAK_DIVERGENCE, PARAMS_LIMITS, SOLUTION_LIMIT } from '../constants';
 
 class MainService {
-  public getSimplexes(expression: string): Simplex[] {
+  public getSimplexes(expression: string, params: Params): Simplex[] {
+    this.checkParams(params);
+
     const tree = ExpressionTree.createTree(expression);
-    const method = new NelderMeadMethod(tree);
+    const method = new NelderMeadMethod(tree, {
+      reflection: +params.reflection,
+      expansion: +params.expansion,
+      contraction: +params.contraction,
+      homothety: +params.homothety,
+      dispersion: +params.dispersion,
+    });
 
     const simplexes: Simplex[] = [];
-    for (const simplex of method.minimumSearch()) {
+    for (const simplex of method.minimumSearch(+params.iterationsLimit)) {
+      if (simplexes.length >= params.iterationsLimit) break;
       const coords: number[][] = [];
       const values: number[] = [];
 
@@ -137,6 +147,18 @@ class MainService {
     }
 
     return result;
+  }
+
+  private checkParams(params: Params) {
+    for (const param in params) {
+      if (!(param in PARAMS_LIMITS)) continue;
+
+      const value = +params[param];
+      if (value < PARAMS_LIMITS[param]?.min)
+        throw Error(`${param} must not be less than ${PARAMS_LIMITS[param].min}`);
+      if (value > PARAMS_LIMITS[param]?.max)
+        throw Error(`${param} must not be greater than ${PARAMS_LIMITS[param].max}`);
+    }
   }
 }
 

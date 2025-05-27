@@ -6,6 +6,7 @@
   box-sizing: border-box;
 }
 .item {
+  list-style: none;
   margin: 11px 22px;
   &:nth-child(1) {
     margin-top: 22px;

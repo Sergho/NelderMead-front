@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import classes from './Input.module.scss';
 import { ChangeEvent, FC, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { setExpressionInput } from '../../../../features/expression/expression-input.slice';
+import { setExpression } from '../../../../features/inputs/inputs.slice';
 
 interface InputProps {
   className?: string;
@@ -12,7 +12,7 @@ export const Input: FC<InputProps> = (props: InputProps) => {
   const { className } = props;
 
   const dispatch = useAppDispatch();
-  const expression = useAppSelector((state) => state.expressionInput.expression);
+  const expression = useAppSelector((state) => state.inputs.expression);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const spanRef = useRef<HTMLSpanElement>(null);
@@ -20,7 +20,7 @@ export const Input: FC<InputProps> = (props: InputProps) => {
   document.fonts.ready.then(updateWidth);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    dispatch(setExpressionInput(e.target.value));
+    dispatch(setExpression(e.target.value));
     updateWidth();
   }
 

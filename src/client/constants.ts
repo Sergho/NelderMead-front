@@ -57,3 +57,35 @@ export const PLOT_OPTIONS_3D: {
     yaxis: { linecolor: 'black', gridcolor: 'rgba(200,200,200,0.5)' },
   },
 };
+
+export const PARAMS_OPTIONS: {
+  [key: string]: {
+    default: number;
+    step: number;
+  };
+} = {
+  reflection: {
+    default: 1,
+    step: 0.001,
+  },
+  expansion: {
+    default: 2,
+    step: 0.001,
+  },
+  contraction: {
+    default: 0.5,
+    step: 0.001,
+  },
+  homothety: {
+    default: 0.5,
+    step: 0.001,
+  },
+  dispersion: {
+    default: 0.0001,
+    step: 0.0001,
+  },
+  iterationsLimit: {
+    default: 1000,
+    step: 1,
+  },
+};

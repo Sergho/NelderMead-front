@@ -1,14 +1,14 @@
 import clsx from 'clsx';
-import classes from './Tab.module.scss';
+import classes from './FunctionTab.module.scss';
 import { FC } from 'react';
-import { Function } from '../Function/Function';
-import { Log } from '../Log/Log';
+import { Function } from '../../../Function/Function';
+import { Log } from '../../../Log/Log';
 
-interface TabProps {
+interface FunctionTabProps {
   className?: string;
 }
 
-export const Tab: FC<TabProps> = (props: TabProps) => {
+export const FunctionTab: FC<FunctionTabProps> = (props: FunctionTabProps) => {
   const { className } = props;
 
   return (
