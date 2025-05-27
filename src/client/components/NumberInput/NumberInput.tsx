@@ -1,12 +1,13 @@
 import { FC } from 'react';
 import classes from './NumberInput.module.scss';
 import clsx from 'clsx';
+import { PARAMS_OPTIONS } from '../../constants';
 
 export interface NumberInputProps {
   className?: string;
   name: string;
-  value: number;
-  onChange: (name: string, value: number) => void;
+  value: number | null;
+  onChange: (name: string, value: string) => void;
 }
 
 export const NumberInput: FC<NumberInputProps> = (props: NumberInputProps) => {
@@ -18,12 +19,13 @@ export const NumberInput: FC<NumberInputProps> = (props: NumberInputProps) => {
       <p className={clsx(classes.label)}>{label}</p>
       <input
         onChange={(e) => {
-          onChange(name, +e.target.value);
+          onChange(name, e.target.value);
         }}
         type="number"
         name={name}
-        value={value}
+        value={value || ''}
         className={clsx(classes.input)}
+        step={PARAMS_OPTIONS[name]?.step}
       />
     </label>
   );

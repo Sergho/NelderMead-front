@@ -18,7 +18,7 @@ export const Function: FC<FunctionProps> = (props: FunctionProps) => {
   const { className } = props;
 
   const dispatch = useAppDispatch();
-  const expression = useAppSelector((state) => state.expressionInput.expression);
+  const expression = useAppSelector((state) => state.inputs.expression);
 
   async function handleClick() {
     dispatch(fetchSolution(expression))

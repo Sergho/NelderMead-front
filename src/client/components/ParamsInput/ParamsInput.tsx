@@ -1,8 +1,9 @@
 import clsx from 'clsx';
 import { FC } from 'react';
 import classes from './ParamsInput.module.scss';
-import { Param } from '../../types/enums/param.enum';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { NumberInput } from '../NumberInput/NumberInput';
+import { setParams } from '../../features/inputs/inputs.slice';
 
 export interface ParamsInputProps {
   className?: string;
@@ -10,17 +11,18 @@ export interface ParamsInputProps {
 
 export const ParamsInput: FC<ParamsInputProps> = (props: ParamsInputProps) => {
   const { className } = props;
+  const params = useAppSelector((state) => state.inputs.params);
+  const dispatch = useAppDispatch();
 
-  function changeHandler(name: Param, value: number) {
-    console.log(name, value);
+  function handleChange(name: string, value: string) {
+    if (value === '') dispatch(setParams({ [name]: null }));
+    else dispatch(setParams({ [name]: value }));
   }
 
   return (
     <div className={clsx(className, classes.wrapper)}>
-      {Object.values(Param).map((name) => {
-        return (
-          <NumberInput name={name} value={0} onChange={changeHandler} className={classes.input} />
-        );
+      {Object.keys(params).map((name, index) => {
+        return <NumberInput key={index} name={name} value={params[name]} onChange={handleChange} />;
       })}
     </div>
   );

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import expressionInputReducer from '../features/expression/expression-input.slice';
+import InputReducer from '../features/inputs/inputs.slice';
 import LogsReducer from '../features/logs/logs.slice';
 import GraphReducer from '../features/graph/graph.slice';
 import AsideOpenedReducer from '../features/aside/aside.slice';
@@ -7,7 +7,7 @@ import SolutionReducer from '../features/solution/solution.slice';
 
 export const store = configureStore({
   reducer: {
-    expressionInput: expressionInputReducer,
+    inputs: InputReducer,
     logs: LogsReducer,
     graph: GraphReducer,
     aside: AsideOpenedReducer,
