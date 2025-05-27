@@ -1,11 +1,13 @@
 import classes from './Aside.module.scss';
 import clsx from 'clsx';
 import { FC } from 'react';
-import { Tab } from '../Tab/Tab';
 import { useAppSelector } from '../../app/hooks';
 import { NavGroup } from '../NavGroup/NavGroup';
 import { FunctionIcon } from '../NavGroup/ui/FunctionIcon/FunctionIcon';
 import { SettingsIcon } from '../NavGroup/ui/SettingsIcon/SettingsIcon';
+import { TabGroup } from '../TabGroup/TabGroup';
+import { FunctionTab } from '../TabGroup/ui/FunctionTab/FunctionTab';
+import { SettingsTab } from '../TabGroup/ui/SettingsTab/SettingsTab';
 
 interface AsideProps {
   className?: string;
@@ -13,9 +15,8 @@ interface AsideProps {
 export const Aside: FC<AsideProps> = (props: AsideProps) => {
   const { className } = props;
 
-  const activeIndex = useAppSelector((state) => state.asideOpened.activeIndex);
+  const activeIndex = useAppSelector((state) => state.aside.activeIndex);
 
-  console.log(activeIndex);
   return (
     <div
       className={clsx(className, classes.wrapper, {
@@ -26,7 +27,10 @@ export const Aside: FC<AsideProps> = (props: AsideProps) => {
         <FunctionIcon />
         <SettingsIcon />
       </NavGroup>
-      <Tab />
+      <TabGroup>
+        <FunctionTab />
+        <SettingsTab />
+      </TabGroup>
     </div>
   );
 };

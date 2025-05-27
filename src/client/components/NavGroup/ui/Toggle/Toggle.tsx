@@ -12,7 +12,7 @@ interface ToggleProps extends PropsWithChildren {
 export const Toggle: FC<ToggleProps> = (props: ToggleProps) => {
   const { className, index, children } = props;
 
-  const activeIndex = useAppSelector((state) => state.asideOpened.activeIndex);
+  const activeIndex = useAppSelector((state) => state.aside.activeIndex);
   const dispatch = useAppDispatch();
 
   function handleClick() {

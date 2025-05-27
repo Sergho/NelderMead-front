@@ -10,7 +10,7 @@ export const store = configureStore({
     expressionInput: expressionInputReducer,
     logs: LogsReducer,
     graph: GraphReducer,
-    asideOpened: AsideOpenedReducer,
+    aside: AsideOpenedReducer,
     solution: SolutionReducer,
   },
 });
