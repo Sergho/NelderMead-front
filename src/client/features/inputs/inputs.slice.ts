@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PARAMS_OPTIONS } from '../../constants';
 import { Params } from '../../../common/types/params';
 
 interface InputsState {
@@ -9,12 +10,12 @@ interface InputsState {
 const initialState: InputsState = {
   expression: '',
   params: {
-    reflection: 1,
-    expansion: 2,
-    contraction: 0.5,
-    homothety: 0.5,
-    dispersion: 0.0001,
-    iterationsLimit: 1000,
+    reflection: PARAMS_OPTIONS?.reflection?.default || null,
+    expansion: PARAMS_OPTIONS?.expansion?.default || null,
+    contraction: PARAMS_OPTIONS?.contraction?.default || null,
+    homothety: PARAMS_OPTIONS?.homothety?.default || null,
+    dispersion: PARAMS_OPTIONS?.dispersion?.default || null,
+    iterationsLimit: PARAMS_OPTIONS?.iterationsLimit?.default || null,
   },
 };
 
