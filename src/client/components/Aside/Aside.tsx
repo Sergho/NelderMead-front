@@ -13,12 +13,13 @@ interface AsideProps {
 export const Aside: FC<AsideProps> = (props: AsideProps) => {
   const { className } = props;
 
-  const opened = useAppSelector((state) => state.asideOpened.opened);
+  const activeIndex = useAppSelector((state) => state.asideOpened.activeIndex);
 
+  console.log(activeIndex);
   return (
     <div
       className={clsx(className, classes.wrapper, {
-        [classes.opened]: opened,
+        [classes.opened]: activeIndex !== null,
       })}
     >
       <NavGroup>

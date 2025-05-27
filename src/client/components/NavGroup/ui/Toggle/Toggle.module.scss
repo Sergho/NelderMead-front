@@ -14,4 +14,9 @@
   &:hover {
     opacity: 1;
   }
+  &.opened {
+    border: 2px solid var(--color-purple-2);
+    padding: 10px;
+    opacity: 1;
+  }
 }

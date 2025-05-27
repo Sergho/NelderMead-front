@@ -1,23 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface AsideOpenedState {
-  opened: boolean;
+  activeIndex: number | null;
 }
 
 const initialState: AsideOpenedState = {
-  opened: true,
+  activeIndex: null,
 };
 
-export const AsideOpenedSlice = createSlice({
-  name: 'asideOpened',
+export const AsideSlice = createSlice({
+  name: 'aside',
   initialState,
   reducers: {
-    setAsideOpened: (state, action: PayloadAction<boolean>) => {
-      state.opened = action.payload;
+    setAsideActiveIndex: (state, action: PayloadAction<number | null>) => {
+      state.activeIndex = action.payload;
     },
   },
 });
 
-export const { setAsideOpened } = AsideOpenedSlice.actions;
+export const { setAsideActiveIndex } = AsideSlice.actions;
 
-export default AsideOpenedSlice.reducer;
+export default AsideSlice.reducer;
