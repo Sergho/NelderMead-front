@@ -1,0 +1,20 @@
+.wrapper {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+.label {
+  width: 70%;
+  font-size: var(--font-medium);
+  color: var(--color-purple-1);
+}
+.input {
+  width: 30%;
+  display: block;
+  height: 36px;
+  text-align: right;
+  border: none;
+  background-color: var(--color-purple-4);
+  font-size: var(--font-small);
+}
