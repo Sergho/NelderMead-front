@@ -6,3 +6,4 @@ export const CORS = cors({
 });
 
 export const GRAPH_BREAK_DIVERGENCE = 1000;
+export const SOLUTION_LIMIT = 100;

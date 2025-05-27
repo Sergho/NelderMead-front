@@ -1,9 +1,55 @@
-import { ExpressionTree, ExpressionTreeObject } from '../../addon/binding';
-import { GetGraphRequestDto } from '../../common/types/dto/tree/get-graph.dto';
-import { GRAPH_BREAK_DIVERGENCE } from '../constants';
+import { ExpressionTree, NelderMeadMethod } from '../../addon/binding';
+import { GetGraphRequestDto } from '../../common/types/dto/get-graph.dto';
+import { GraphPoints } from '../../common/types/graph-points';
+import { Simplex } from '../../common/types/simplex';
+import { GRAPH_BREAK_DIVERGENCE, SOLUTION_LIMIT } from '../constants';
 
-class TreeService {
-  public getGraph(dto: GetGraphRequestDto): any {
+class MainService {
+  public getSimplexes(expression: string): Simplex[] {
+    const tree = ExpressionTree.createTree(expression);
+    const method = new NelderMeadMethod(tree);
+
+    const simplexes: Simplex[] = [];
+    for (const simplex of method.minimumSearch()) {
+      const coords: number[][] = [];
+      const values: number[] = [];
+
+      let pointBreak = false;
+      for (const point of simplex) {
+        if (point.length === 0) {
+          throw new Error('Constant function');
+        }
+
+        for (const index in point) {
+          if (Math.abs(point[index]) > SOLUTION_LIMIT) {
+            pointBreak = true;
+            break;
+          }
+          if (!coords[index]) {
+            coords[index] = [];
+          }
+          coords[index].push(point[index]);
+        }
+
+        try {
+          if (point.includes(Infinity) || point.includes(-Infinity)) {
+            throw new Error('Infinite point');
+          }
+          values.push(tree.evaluate(point));
+        } catch {
+          pointBreak = true;
+          break;
+        }
+      }
+
+      if (pointBreak) continue;
+      simplexes.push({ coords, values });
+    }
+
+    return simplexes;
+  }
+
+  public getGraph(dto: GetGraphRequestDto): GraphPoints {
     const { expression, from, to, interval } = dto;
 
     const tree = ExpressionTree.createTree(expression);
@@ -19,11 +65,11 @@ class TreeService {
     return { ...actions[dimension](tree, from, to, +interval) };
   }
   private getGraph2D(
-    tree: ExpressionTreeObject,
+    tree: ExpressionTree,
     from: number,
     to: number,
     interval: number,
-  ): { x: number[]; y: number[] } {
+  ): GraphPoints {
     const min = Math.min(from, to);
     const max = Math.max(from, to);
 
@@ -33,7 +79,7 @@ class TreeService {
     };
 
     let prevValue: number = null;
-    for (let i = min; i <= max; i += interval) {
+    for (let i = min; i < max + interval; i += interval) {
       result.x.push(i);
       let value: number = null;
       try {
@@ -52,15 +98,11 @@ class TreeService {
   }
 
   private getPoints3D(
-    tree: ExpressionTreeObject,
+    tree: ExpressionTree,
     from: number,
     to: number,
     interval: number,
-  ): {
-    x: number[];
-    y: number[];
-    z: number[];
-  } {
+  ): GraphPoints {
     const min = Math.min(from, to);
     const max = Math.max(from, to);
 
@@ -98,4 +140,4 @@ class TreeService {
   }
 }
 
-export const treeService = new TreeService();
+export const mainService = new MainService();

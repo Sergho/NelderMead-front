@@ -22,6 +22,8 @@ include_directories(
 link_directories(${CMAKE_JS_LIB})
 
 add_library(${PROJECT_NAME} SHARED
+  src/expression-tree-wrapper.cpp
+  src/nelder-mead-wrapper.cpp
   src/addon.cpp
 )
 
@@ -29,6 +31,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   ${NAPI_INCLUDES}
   "${CMAKE_CURRENT_SOURCE_DIR}/../../node_modules/node-addon-api"
   ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/include
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE

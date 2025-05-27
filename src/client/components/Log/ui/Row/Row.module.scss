@@ -8,9 +8,14 @@
   font-size: 18px;
   margin-right: 10px;
   text-align: right;
+  user-select: none;
 }
 .content {
   width: auto;
   white-space: pre;
   color: var(--color-purple-2);
+
+  &.error {
+    color: var(--color-error-1);
+  }
 }
