@@ -1,15 +1,15 @@
 import clsx from 'clsx';
 import classes from './Toggle.module.scss';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setAsideOpened } from '../../features/aside/aside.slice';
 
-interface ToggleProps {
+interface ToggleProps extends PropsWithChildren {
   className?: string;
 }
 
 export const Toggle: FC<ToggleProps> = (props: ToggleProps) => {
-  const { className } = props;
+  const { className, children } = props;
 
   const opened = useAppSelector((state) => state.asideOpened.opened);
   const dispatch = useAppDispatch();
@@ -19,14 +19,8 @@ export const Toggle: FC<ToggleProps> = (props: ToggleProps) => {
   }
 
   return (
-    <div
-      className={clsx(className, classes.wrapper, {
-        [classes.opened]: opened,
-      })}
-      onClick={handleClick}
-    >
-      <span className={classes.stick}></span>
-      <span className={classes.stick}></span>
+    <div className={clsx(className, classes.wrapper)} onClick={handleClick}>
+      {children}
     </div>
   );
 };

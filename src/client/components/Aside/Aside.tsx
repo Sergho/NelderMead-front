@@ -1,9 +1,11 @@
 import classes from './Aside.module.scss';
 import clsx from 'clsx';
 import { FC } from 'react';
-import { Nav } from '../Nav/Nav';
 import { Tab } from '../Tab/Tab';
 import { useAppSelector } from '../../app/hooks';
+import { NavGroup } from '../NavGroup/NavGroup';
+import { FunctionIcon } from '../NavGroup/ui/FunctionIcon/FunctionIcon';
+import { SettingsIcon } from '../NavGroup/ui/SettingsIcon/SettingsIcon';
 
 interface AsideProps {
   className?: string;
@@ -19,7 +21,10 @@ export const Aside: FC<AsideProps> = (props: AsideProps) => {
         [classes.opened]: opened,
       })}
     >
-      <Nav className={classes.nav} />
+      <NavGroup>
+        <FunctionIcon />
+        <SettingsIcon />
+      </NavGroup>
       <Tab />
     </div>
   );
