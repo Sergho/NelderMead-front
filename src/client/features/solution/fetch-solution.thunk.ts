@@ -3,7 +3,7 @@ import { GetSolutionResponseDto } from '../../../common/types/dto/get-solution.d
 import axios from 'axios';
 import { API } from '../../constants';
 import { ErrorDto } from '../../../common/types/dto/error.dto';
-import { Params } from '../../../common/types/params.interface';
+import { Params } from '../../../common/types/params';
 
 export const fetchSolution = createAsyncThunk<
   GetSolutionResponseDto,

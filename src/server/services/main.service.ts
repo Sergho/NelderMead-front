@@ -1,5 +1,5 @@
 import { ExpressionTree, NelderMeadMethod } from '../../addon/binding';
-import { Params } from '../../common/types/params.interface';
+import { Params } from '../../common/types/params';
 import { GetGraphRequestDto } from '../../common/types/dto/get-graph.dto';
 import { GraphPoints } from '../../common/types/graph-points';
 import { Simplex } from '../../common/types/simplex';

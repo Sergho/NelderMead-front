@@ -26,7 +26,7 @@ export const LogsSlice = createSlice({
               point.push(values[i]);
             }
             point.push(simplex.values[i]);
-            points.push(`[${point.join(', ')}]`);
+            points.push(`[${point.map((num) => num.toFixed(4)).join(', ')}]`);
           }
           return points.join(' - ');
         });

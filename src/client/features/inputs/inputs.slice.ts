@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Params } from '../../../common/types/params.interface';
+import { Params } from '../../../common/types/params';
 
 interface InputsState {
   expression: string;
