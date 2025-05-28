@@ -89,3 +89,23 @@ export const PARAMS_OPTIONS: {
     step: 1,
   },
 };
+
+export const SIMPLEX_OPTIONS: {
+  [key: string]: {
+    default: any;
+    step: number;
+  };
+} = {
+  dimension: {
+    default: 1,
+    step: 1,
+  },
+  startPoint: {
+    default: [0],
+    step: 0.001,
+  },
+  simplexOffset: {
+    default: 1,
+    step: 0.001,
+  },
+};
