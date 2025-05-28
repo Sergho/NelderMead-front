@@ -38,9 +38,9 @@ class MainController {
     req: DtoRequest<GetSolutionRequestDto>,
     res: DtoResponse<GetSolutionResponseDto>,
   ) {
-    const { expression, params } = req.query;
+    const { expression, params, startSimplex } = req.query;
     try {
-      const simplexes = mainService.getSimplexes(expression, params);
+      const simplexes = mainService.getSimplexes(expression, params, startSimplex);
       res.status(200).json({ simplexes });
     } catch (error) {
       res.status(400).json({ message: error.message });

@@ -4,12 +4,13 @@ import { GetGraphRequestDto } from '../../common/types/dto/get-graph.dto';
 import { GraphPoints } from '../../common/types/graph-points';
 import { Simplex } from '../../common/types/simplex';
 import { GRAPH_BREAK_DIVERGENCE, PARAMS_LIMITS, SOLUTION_LIMIT } from '../constants';
+import { SimplexParams } from '../../common/types/simplex-params';
 
 class MainService {
-  public getSimplexes(expression: string, params: Params): Simplex[] {
-    this.checkParams(params);
-
+  public getSimplexes(expression: string, params: Params, startSimplex: SimplexParams): Simplex[] {
     const tree = ExpressionTree.createTree(expression);
+    this.checkParams(tree, params, startSimplex);
+
     const method = new NelderMeadMethod(tree, {
       reflection: +params.reflection,
       expansion: +params.expansion,
@@ -17,6 +18,8 @@ class MainService {
       homothety: +params.homothety,
       dispersion: +params.dispersion,
     });
+
+    method.setSimplex(this.getStartSimplex(startSimplex));
 
     const simplexes: Simplex[] = [];
     for (const simplex of method.minimumSearch(+params.iterationsLimit)) {
@@ -149,7 +152,8 @@ class MainService {
     return result;
   }
 
-  private checkParams(params: Params) {
+  private checkParams(tree: ExpressionTree, params: Params, startSimplex: SimplexParams) {
+    console.log(params);
     for (const param in params) {
       if (!(param in PARAMS_LIMITS)) continue;
 
@@ -159,6 +163,18 @@ class MainService {
       if (value > PARAMS_LIMITS[param]?.max)
         throw Error(`${param} must not be greater than ${PARAMS_LIMITS[param].max}`);
     }
+
+    const dimension = tree.getNumberVariables();
+    if (dimension !== +startSimplex.dimension) throw Error('Wrong start simplex dimension');
+  }
+  private getStartSimplex(startSimplex: SimplexParams): number[][] {
+    const points: number[][] = [startSimplex.startPoint.map((n) => +n)];
+    for (let i = 0; i < startSimplex.dimension; i++) {
+      const point = [...startSimplex.startPoint].map((n) => +n);
+      point[i] += +startSimplex.simplexOffset;
+      points.push(point);
+    }
+    return points;
   }
 }
 

@@ -15,8 +15,7 @@ export const ParamsInput: FC<ParamsInputProps> = (props: ParamsInputProps) => {
   const dispatch = useAppDispatch();
 
   function handleChange(name: string, value: string) {
-    if (value === '') dispatch(setParams({ [name]: null }));
-    else dispatch(setParams({ [name]: value }));
+    dispatch(setParams({ [name]: value }));
   }
 
   return (

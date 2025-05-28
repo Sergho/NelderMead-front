@@ -20,9 +20,10 @@ export const Function: FC<FunctionProps> = (props: FunctionProps) => {
   const dispatch = useAppDispatch();
   const expression = useAppSelector((state) => state.inputs.expression);
   const params = useAppSelector((state) => state.inputs.params);
+  const startSimplex = useAppSelector((state) => state.inputs.startSimplex);
 
   async function handleClick() {
-    dispatch(fetchSolution({ expression, params }))
+    dispatch(fetchSolution({ expression, params, startSimplex }))
       .unwrap()
       .then((solution) => {
         const limits = getLimits(solution.simplexes);
