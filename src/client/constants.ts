@@ -66,19 +66,19 @@ export const PARAMS_OPTIONS: {
 } = {
   reflection: {
     default: 1,
-    step: 0.001,
+    step: 0.1,
   },
   expansion: {
     default: 2,
-    step: 0.001,
+    step: 0.1,
   },
   contraction: {
     default: 0.5,
-    step: 0.001,
+    step: 0.1,
   },
   homothety: {
     default: 0.5,
-    step: 0.001,
+    step: 0.1,
   },
   dispersion: {
     default: 0.0001,
