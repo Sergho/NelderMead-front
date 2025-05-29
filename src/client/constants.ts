@@ -66,19 +66,19 @@ export const PARAMS_OPTIONS: {
 } = {
   reflection: {
     default: 1,
-    step: 0.001,
+    step: 0.1,
   },
   expansion: {
     default: 2,
-    step: 0.001,
+    step: 0.1,
   },
   contraction: {
     default: 0.5,
-    step: 0.001,
+    step: 0.1,
   },
   homothety: {
     default: 0.5,
-    step: 0.001,
+    step: 0.1,
   },
   dispersion: {
     default: 0.0001,
@@ -87,5 +87,25 @@ export const PARAMS_OPTIONS: {
   iterationsLimit: {
     default: 1000,
     step: 1,
+  },
+};
+
+export const SIMPLEX_OPTIONS: {
+  [key: string]: {
+    default: any;
+    step: number;
+  };
+} = {
+  dimension: {
+    default: 1,
+    step: 1,
+  },
+  startPoint: {
+    default: [0],
+    step: 0.001,
+  },
+  simplexOffset: {
+    default: 1,
+    step: 0.001,
   },
 };

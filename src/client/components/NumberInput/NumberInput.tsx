@@ -23,7 +23,7 @@ export const NumberInput: FC<NumberInputProps> = (props: NumberInputProps) => {
         }}
         type="number"
         name={name}
-        value={value || ''}
+        value={value === null ? '' : value}
         className={clsx(classes.input)}
         step={PARAMS_OPTIONS[name]?.step}
       />
